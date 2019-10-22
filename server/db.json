@@ -1,0 +1,22 @@
+{
+    "todos": [
+      {
+        "id": 1,
+        "title": "Makan Malam",
+        "description": "hari ini aku sangat lapar e",
+        "type": "urgent",
+        "due_date": "22/10/2019",
+        "createdAt": "20/10/2019",
+        "updatedAt": "20/10/2019"
+      },
+      {
+        "title": "makan siang",
+        "description": "hari ini aku lapar sekali",
+        "type": "urgent",
+        "due_date": "22/10/2019",
+        "createdAt": "20/10/2019",
+        "updatedAt": "20/10/2019",
+        "id": 2
+      }
+    ]
+  }

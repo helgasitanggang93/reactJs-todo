@@ -76,7 +76,7 @@ class App extends React.Component {
         detailData: data,
         isDetail: true
       })
-     
+      console.log(this.state.detailData)
     })
     .catch(err=>{
       console.log(err)

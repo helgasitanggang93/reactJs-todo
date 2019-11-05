@@ -1,45 +1,35 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Button, Card} from 'react-bootstrap';
+import {fetchDetailTodo, isDetail} from '../store/actions';
 
 class CardTodo extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            color: '',
-            colorButton: '',
-            textColorButton:''
-        }
-    }
-
-    componentDidMount() {
-        this.collorStatus();
-    }
-   
     collorStatus = () => {
-        const {status} = this.props
+        console.log(this.props)
+        const {status} = this.props.appProps
         if(status === 'urgent'){
-            this.setState({color : '#ef5350 ', colorButton: '#FDD20EFF', textColorButton: '#ef5350 '})
-        }else if(status ==='unUrgent'){
-            this.setState({color : '#ffe67c', colorButton: '#295f2d', textColorButton: '#ffe67c'})
+            return '#ef5350'
         }else if(status === 'done'){
-            this.setState({color : '#8aaae5', colorButton: '#ffffff', textColorButton: '#8aaae5'})
+            return '#8aaae5'
         } 
     }
 
     seeDetailHandler = (id) => {
-        this.props.seeDetail(id)
+        this.props.fetchDetailTodo(id)
+        this.props.isDetail(true)
     }
+
     render (){
-        const {id, title, due_date} = this.props
+        const {id, title, due_date} = this.props.appProps
         return (
             <div>
-                <Card style={{ width: '15rem', backgroundColor: `${this.state.color}`}}>
+                <Card key={id} style={{ width: '15rem', backgroundColor: this.collorStatus()}}>
                     <Card.Body>
-                        <Card.Title style={{color: `${this.state.colorButton}`}}>{title}</Card.Title>
-                        <Card.Text style={{color: `${this.state.colorButton}`}}>
+                        <Card.Title style={{ color: '#ffffff' }}>{title}</Card.Title>
+                        <Card.Text style={{ color: '#ffffff' }}>
                             {due_date}
-                         </Card.Text>
-                        <Button onClick={() => this.seeDetailHandler(id)} style={{backgroundColor: `${this.state.colorButton}`, color: `${this.state.textColorButton}`, borderStyle: 'none'}}>See Detail</Button>
+                        </Card.Text>
+                        <Button onClick={() => this.seeDetailHandler(id)} style={{ backgroundColor: '#ffffff', color: this.collorStatus(), borderStyle: 'none' }}>See Detail</Button>
                     </Card.Body>
                 </Card>
             </div>
@@ -47,4 +37,11 @@ class CardTodo extends React.Component {
     }
 }
 
-export default CardTodo
+const mapStoreToProps = (state, ownprops) => {
+    return {
+        appProps: ownprops,
+        store: state.reducer
+    }
+}
+
+export default connect(mapStoreToProps, {fetchDetailTodo: fetchDetailTodo, isDetail: isDetail})(CardTodo)

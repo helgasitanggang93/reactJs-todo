@@ -5,6 +5,7 @@ const initialState = {
     detail: {},
     isLoading: false,
     isDetail: false,
+    isForm: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -21,12 +22,6 @@ const reducer = (state = initialState, action) => {
                 detail: action.payload,
             }
         }
-        case 'ITEM_IS_LOADING': {
-            return {
-                ...state,
-                isLoading: action.payload
-            }
-        }
         case 'IS_DETAIL': {
             return {
                 ...state,
@@ -37,6 +32,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 detail: action.payload
+            }
+        }
+        case 'FORM_MODAL_HANDLER' : {
+            return {
+                ...state,
+                isForm : action.payload
             }
         }
         default:

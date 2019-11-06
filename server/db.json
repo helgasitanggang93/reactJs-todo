@@ -1,22 +1,67 @@
 {
   "todos": [
     {
-      "title": "makan malam",
-      "description": "hari ini makan yok",
-      "type": "urgent",
-      "due_date": "22/10/2019",
-      "createdAt": "20/10/2019",
-      "updatedAt": "20/10/2019",
-      "id": 1
+      "title": "Makan bersama mantan",
+      "description": "cuy hari ini aku makan pagi ya",
+      "due_date": "2019-11-06",
+      "type": "done",
+      "createdAt": "2019-11-05T06:23:07.627Z",
+      "updatedAt": "2019-11-06T07:20:06.620Z",
+      "id": 3
     },
     {
-      "title": "makan siang",
-      "description": "hari ini aku lapar sekali",
+      "title": "geser dong",
+      "description": "aku hari ini tidak bisa datang ya bang",
+      "due_date": "2019-11-07",
       "type": "done",
-      "due_date": "22/10/2019",
-      "createdAt": "20/10/2019",
-      "updatedAt": "20/10/2019",
-      "id": 2
+      "createdAt": "2019-11-05T09:10:25.094Z",
+      "updatedAt": "2019-11-06T03:15:35.007Z",
+      "id": 5
+    },
+    {
+      "title": "hari ini harinya ",
+      "description": "One of the things I love about template strings is that they are declarative. You just need to write the string how you want it to look and the JavaScript interpreter will take care of the rest.",
+      "due_date": "2019-11-14",
+      "type": "done",
+      "createdAt": "2019-11-06T01:49:55.414Z",
+      "updatedAt": "2019-11-06T01:50:13.323Z",
+      "id": 7
+    },
+    {
+      "title": "test tanggal",
+      "description": "One of the things I love about template strings is that they are declarative. You just need to write the string how you want it to look and the JavaScript interpreter will take care of the rest.",
+      "due_date": "2019-11-18",
+      "type": "done",
+      "createdAt": "2019-11-06T01:58:01.914Z",
+      "updatedAt": "2019-11-06T07:04:51.747Z",
+      "id": 8
+    },
+    {
+      "title": "mksms",
+      "description": "dsdsds",
+      "due_date": "2019-11-07",
+      "type": "done",
+      "createdAt": "2019-11-06T03:18:29.796Z",
+      "updatedAt": "2019-11-06T03:34:36.814Z",
+      "id": 11
+    },
+    {
+      "title": "test lagi",
+      "description": "kokodmdaskdm",
+      "due_date": "2019-11-15",
+      "type": "urgent",
+      "createdAt": "2019-11-06T03:19:17.224Z",
+      "updatedAt": "2019-11-06T07:18:21.309Z",
+      "id": 12
+    },
+    {
+      "title": "coba form baru",
+      "description": "makdmkdmadkmksmad",
+      "due_date": "2019-11-16",
+      "type": "urgent",
+      "createdAt": "2019-11-06T05:38:04.423Z",
+      "updatedAt": "2019-11-06T05:38:04.423Z",
+      "id": 13
     }
   ]
 }

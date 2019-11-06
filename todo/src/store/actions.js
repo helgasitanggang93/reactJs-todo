@@ -84,9 +84,9 @@ export const fetchDetailTodo = (id) => dispatch =>{
    axiosTodo.get(`/todos/${id}`)
    .then(({data})=>{
        dispatch({
-           type: 'FETCH_DETAIL_TODO',
-           payload: data
-       })
+            type: 'FETCH_DETAIL_TODO',
+            payload: data
+        })
    })
    .catch(err=>{
     dispatch({
@@ -159,5 +159,12 @@ export const deleteTodo = (id) => (dispatch, getState) => {
             type:'ITEM_ERROR',
             payload: err
         })
+    })
+}
+
+export const emptydDetail = () => dispatch => {
+    dispatch({
+        type: 'FETCH_DETAIL_TODO',
+        payload: {}
     })
 }

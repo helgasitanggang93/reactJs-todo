@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './components/navbar';
 import CreateFormTodo from './components/todoCreate';
 import CardTodo from './components/cards';
+import DetaiTodo from './components/detailCards'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {isDetail, fetchTodoData, formModalHandler, sortByDue} from './store/actions';
 import {connect} from 'react-redux';
@@ -40,13 +41,14 @@ class App extends React.Component {
 
       <Container className="text-center pt-5">
         <Row>
-          <DropdownButton id="dropdown-basic-button" title="Option">
-            <Dropdown.Item onClick={this.sortByDueDate}>Sort By Due Date</Dropdown.Item>
-          </DropdownButton>
+       {this.props.reducer.todos.length !== 0 ? <DropdownButton id="dropdown-basic-button" title="Option">
+                  <Dropdown.Item onClick={this.sortByDueDate}>Sort By Due Date</Dropdown.Item>
+              </DropdownButton> : null}
           </Row>
         <Row>
-          {this.listTodoRender()}
+          { this.props.reducer.todos.length !== 0 ? this.listTodoRender(): <div> Please create your data </div> }
         </Row>
+        <DetaiTodo/>
       </Container>
     </div>
   );

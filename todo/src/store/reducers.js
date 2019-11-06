@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
         case 'FETCH_DETAIL_TODO': {
             return {
                 ...state,
-                detail: action.payload,
+                detail: {...action.payload},
             }
         }
         case 'IS_DETAIL': {

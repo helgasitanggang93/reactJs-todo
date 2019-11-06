@@ -1,6 +1,6 @@
 import React from 'react';
 import {Modal, Form , Alert} from 'react-bootstrap';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, reset} from 'redux-form';
 
 class FormTodo extends React.Component {
     renderError({error, touched}){
@@ -14,7 +14,7 @@ class FormTodo extends React.Component {
     }
 
     renderInput = (formProps) => { 
-        console.log(formProps.meta)
+       
         return (
             <Form.Group>
                 <Form.Label>Title</Form.Label>
@@ -54,10 +54,10 @@ class FormTodo extends React.Component {
         );
     }
 
-    onSubmit =(formValues)=>{
+    onSubmit =(formValues, dispatch)=>{
         this.props.onSubmit(formValues)
         this.props.closeModal()
-        
+        dispatch(reset('formTodo'))
     }
     render(){
         return(

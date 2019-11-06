@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {createTodo, formModalHandler} from '../store/actions';
 import FormTodo from '../components/form';
 import {Button} from 'react-bootstrap';
+
 class CreateFormTodo extends React.Component {
     handleOpenModal = () => {
         this.props.formModalHandler(true)
@@ -14,7 +15,6 @@ class CreateFormTodo extends React.Component {
     onSubmit = (formValues)=>{
         this.props.createTodo(formValues)
         this.handleClose()
-        
     }
     render(){
         return(

@@ -5,7 +5,8 @@ const initialState = {
     detail: {},
     isLoading: false,
     isDetail: false,
-    isForm: false
+    isForm: false,
+    isLogin: false
 }
 
 const reducer = (state = initialState, action) => {

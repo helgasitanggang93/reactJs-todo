@@ -1,0 +1,58 @@
+{
+  "todos": [
+    {
+      "title": "revisi ya",
+      "description": "haloo",
+      "due_date": "2019-11-16",
+      "type": "done",
+      "createdAt": "2019-11-06T15:16:49.234Z",
+      "updatedAt": "2019-11-06T18:36:05.825Z",
+      "id": 1
+    },
+    {
+      "title": "cuk jaran",
+      "description": "haloo",
+      "due_date": "2019-11-16",
+      "type": "done",
+      "createdAt": "2019-11-06T15:16:49.234Z",
+      "updatedAt": "2019-11-06T18:36:05.825Z",
+      "id": 2
+    },
+    {
+      "title": "qq",
+      "description": "dedeeddee",
+      "due_date": "2019-11-27",
+      "type": "urgent",
+      "createdAt": "2019-11-15T07:45:13.755Z",
+      "updatedAt": "2019-11-18T05:26:05.618Z",
+      "id": 5
+    },
+    {
+      "title": "drinking water",
+      "description": "mohon maap saya ini tidak bisa apa apa",
+      "due_date": "2019-11-25",
+      "type": "urgent",
+      "createdAt": "2019-11-15T08:01:19.176Z",
+      "updatedAt": "2019-11-15T08:01:19.176Z",
+      "id": 6
+    },
+    {
+      "title": "mkmkmk",
+      "description": "kokokok",
+      "due_date": "2019-11-23",
+      "type": "urgent",
+      "createdAt": "2019-11-15T08:11:18.432Z",
+      "updatedAt": "2019-11-15T08:11:18.432Z",
+      "id": 7
+    },
+    {
+      "title": "try design",
+      "description": "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ",
+      "due_date": "2019-11-16",
+      "type": "urgent",
+      "createdAt": "2019-11-15T08:27:44.549Z",
+      "updatedAt": "2019-11-15T08:27:44.549Z",
+      "id": 8
+    }
+  ]
+}

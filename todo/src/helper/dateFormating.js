@@ -7,6 +7,6 @@ export const formatDate = (values) =>{
     let setMonth = formatDate.getMonth()
     let setDate = formatDate.getDate()
     let setYear = formatDate.getFullYear()
-
+   
     return `${dayList[setDay].slice(0, 3)}, ${setDate} ${monthList[setMonth]} ${setYear}`
 }

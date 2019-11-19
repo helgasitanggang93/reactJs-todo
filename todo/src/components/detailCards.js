@@ -3,7 +3,8 @@ import {Button, Card, Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {isDetail, updateDoneTodo, fetchTodoData, deleteTodo, fetchDetailTodo, emptydDetail} from '../store/actions';
 import EditFormTodo from '../components/todoEdit';
-import {formatDate} from '../helper/dateFormating';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { formatDate } from '../helper/dateFormating';
 
 class DetailTodo extends React.Component {
     componentDidMount(){
@@ -27,15 +28,17 @@ class DetailTodo extends React.Component {
         this.props.deleteTodo(id)
         this.props.isDetail(false)
     }
-    setDate = () => {
-        return formatDate(this.props.reducer.detail.due_date)
-    }
-    
     emptyDong = () => {
         this.props.emptydDetail()
         this.props.isDetail(false)
 
     }
+
+    setDate = (due_date) => {
+        if(due_date) return formatDate(due_date)
+    
+    }
+
     render(){
         const {title, description, due_date, id, type} = this.props.reducer.detail
         return(
@@ -47,14 +50,32 @@ class DetailTodo extends React.Component {
                 </Modal.Header>
                 <Modal.Body>
                 <Card.Body>
-                    <Card.Title> {title} </Card.Title>
-                   <Card.Text> {due_date} </Card.Text> 
-                    <Card.Text> {description} </Card.Text>
+                    <Card.Title>
+                       Title: {title}
+                    </Card.Title>   
+                   <Card.Text> 
+                      Due Date:{this.setDate(due_date)}
+                    </Card.Text> 
+                    <Card.Text> 
+                      Desciption: {description} 
+                    </Card.Text>
                 </Card.Body>
-                <Card.Footer className="m-1">
-                    {type === 'done' ? <Button onClick={() => this.changeStatusDone(id, 'urgent')} className="m-1" variant="info">Undone</Button> : <Button onClick={() => this.changeStatusDone(id, 'done')} className="m-1" variant="info">Done</Button>}
-                    {type === 'urgent' ? <EditFormTodo idTodo={id}/>: null}
-                    <Button onClick={() => this.deleteTodo(id)} className="m-1" variant="danger">Delete</Button>
+                <Card.Footer>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col">
+                                {type === 'done' ? 
+                                 <Button onClick={() => this.changeStatusDone(id, 'urgent')} className="m-1" variant="info">Undone</Button> : 
+                                 <Button onClick={() => this.changeStatusDone(id, 'done')} className="m-1" variant="info">Done</Button>}
+                            </div>
+                            <div className="col">
+                                {type === 'urgent' ? <EditFormTodo idTodo={id}/>: null}
+                            </div>
+                            <div className="col">
+                                <Button onClick={() => this.deleteTodo(id)} className="m-1" variant="danger">Delete</Button>
+                            </div>
+                        </div>
+                    </div>
                 </Card.Footer>
                 </Modal.Body>
             </Card>

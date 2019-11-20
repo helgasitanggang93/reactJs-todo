@@ -16,7 +16,7 @@ class UserController {
             })
         })
         .catch(({errors}) => {
-            res.status(400).json(errors)
+            errors.email.message ? res.status(400).json( errors.email.message) : res.status(400).json(errors)
         })
     }
 
@@ -38,6 +38,9 @@ class UserController {
                 res.status(200).json({token})
                
             }
+        })
+        .catch(({errors}) => {
+            res.status(400).json(errors)
         })
     }
 }

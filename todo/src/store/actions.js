@@ -1,4 +1,4 @@
-import axiosTodo from '../apis/api_todo'
+import axiosTodo from '../apis/api_todo';
 
 export const sortByDue = () => (dispatch, getState) => {
    
@@ -22,6 +22,27 @@ export const isDetail = (bool) => {
     }
 }
 
+export const isLoginRegister = (bool) => {
+    return {
+        type: 'IS_LOGIN_REGISTER',
+        payload: bool
+    }
+}
+
+export const isLogin = (bool) => {
+    return {
+        type: 'IS_LOGIN',
+        payload: bool
+    }
+}
+
+export const isRegister = (bool) => {
+    return {
+        type: 'IS_REGISTER',
+        payload: bool
+    }
+}
+
 export const formModalHandler = (bool) => {
     return {
         type: 'FORM_MODAL_HANDLER',
@@ -37,6 +58,7 @@ export const headerCollor = (color) => {
 }
 
 export const fetchTodoData = () => dispatch => {
+    axiosTodo.defaults.headers.common["token"] = localStorage.token;
     axiosTodo.get('/todos')
     .then(({data})=>{
         dispatch({
@@ -54,13 +76,14 @@ export const fetchTodoData = () => dispatch => {
 
 export const updateDoneTodo = (id, status) => (dispatch, getState) => {
     let newArr = getState().reducer.todos.filter(element =>{
-        return element.id !== id
+        return element._id !== id
     })
+    axiosTodo.defaults.headers.common["token"] = localStorage.token;
     axiosTodo.patch(`/todos/${id}`,{
-        type: status,
-        updatedAt: new Date()
+        type: status
     })
     .then(({data})=>{
+        console.log(data)
         dispatch({
             type: 'FETCH_TODO_DATA',
             payload: [...newArr, data],
@@ -81,6 +104,7 @@ export const updateDoneTodo = (id, status) => (dispatch, getState) => {
 }
 
 export const fetchDetailTodo = (id) => dispatch =>{
+    axiosTodo.defaults.headers.common["token"] = localStorage.token;
    axiosTodo.get(`/todos/${id}`)
    .then(({data})=>{
        dispatch({
@@ -97,20 +121,23 @@ export const fetchDetailTodo = (id) => dispatch =>{
 }
 
 export const createTodo = (values) => (dispatch, getState) => {
+    axiosTodo.defaults.headers.common["token"] = localStorage.token;
     const {title, description, due_date} = values
     axiosTodo.post(`/todos`, {
         title: title,
         description: description,
         due_date: due_date,
-        type: 'urgent',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        type: 'urgent'
+    })
+    .then(()=>{
+        return axiosTodo.get('/todos')
     })
     .then(({data})=>{
-        dispatch({
+         dispatch({
             type:'FETCH_TODO_DATA',
-            payload: [...getState().reducer.todos, data]
+            payload: data
         })
+
     })
     .catch(err=> {
         dispatch({
@@ -121,14 +148,14 @@ export const createTodo = (values) => (dispatch, getState) => {
 }
 
 export const updateTodo = (id, values) => (dispatch, getState) =>{
+    axiosTodo.defaults.headers.common["token"] = localStorage.token;
     let newArr = getState().reducer.todos.filter(element =>{
-        return element.id !== id
+        return element._id !== id
     })
     axiosTodo.patch(`/todos/${id}`,{
         title: values.title,
         description: values.description,
-        due_date: values.due_date,
-        updatedAt: new Date()
+        due_date: values.due_date
     })
 
     .then(({data})=>{
@@ -146,7 +173,8 @@ export const updateTodo = (id, values) => (dispatch, getState) =>{
 }
 
 export const deleteTodo = (id) => (dispatch, getState) => {
-    let newArr = getState().reducer.todos.filter(element=> element.id !== id)
+    axiosTodo.defaults.headers.common["token"] = localStorage.token;
+    let newArr = getState().reducer.todos.filter(element=> element._id !== id)
     axiosTodo.delete(`/todos/${id}`)
     .then(() => {
         dispatch({
@@ -159,6 +187,72 @@ export const deleteTodo = (id) => (dispatch, getState) => {
             type:'ITEM_ERROR',
             payload: err
         })
+    })
+}
+
+export const loginSubmit = (values) => dispatch => {
+    axiosTodo.post('/login', {
+        email: values.email,
+        password: values.password
+    })
+    .then(({data})=> {
+        localStorage.setItem('token', data.token)
+        dispatch({
+            type: 'IS_LOGIN_REGISTER',
+            payload: false
+        })
+        dispatch({
+            type:'ITEM_ERROR',
+            payload: ''
+        })
+    })
+    .catch(({response}) => {
+        dispatch({
+            type:'ITEM_ERROR',
+            payload: response.data.message
+        })
+       
+    })
+}
+
+export const registerSubmit = (values) => dispatch => {
+    axiosTodo.post('/signup', {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        role: values.role
+    })
+    .then(() => {
+
+          dispatch({
+              type: 'IS_LOGIN',
+              payload: true
+          })
+
+          dispatch({
+            type: 'IS_REGISTER',
+            payload: false
+        })
+
+        dispatch({
+            type:'ITEM_ERROR',
+            payload: ''
+        })
+
+    })
+    .catch(({response})=>{
+        dispatch({
+            type:'ITEM_ERROR',
+            payload: response.data
+        })
+    })
+
+}
+
+export const emptyError = () => dispatch => {
+    dispatch({
+        type:'ITEM_ERROR',
+        payload: ''
     })
 }
 

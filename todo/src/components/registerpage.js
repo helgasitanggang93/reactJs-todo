@@ -1,8 +1,78 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button} from 'react-bootstrap';
-
+import { Form, Alert} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {registerSubmit, isLogin, isRegister, emptyError} from '../store/actions';
+import {Field, reduxForm, reset} from 'redux-form';
 class Register extends React.Component {
+    renderError({error, touched}){
+        if(touched && error){
+            return(
+                <Alert variant='danger'>
+                    {error}
+                </Alert>
+            );
+        }
+    }
+    renderName = (formprops) => {
+        return (
+            <Form.Group>
+                <Form.Label>Name:</Form.Label>
+                <Form.Control
+                {...formprops.input} 
+                type="text" 
+                placeholder="enter your name..." />
+                {this.renderError(formprops.meta)}
+            </Form.Group>
+        );
+    }
+    renderEmail = (formprops) => {
+        return(
+            <Form.Group>
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                 {...formprops.input}  
+                type="text" 
+                placeholder="enter your email..." />
+                {this.renderError(formprops.meta)}
+            </Form.Group>
+        );
+    }
+    renderPassword = (formprops) => {
+        return (
+            <Form.Group>
+                <Form.Label>Password:</Form.Label>
+                <Form.Control
+                 {...formprops.input}
+                type="password" 
+                placeholder="enter your password..." />
+                 {this.renderError(formprops.meta)}
+            </Form.Group>
+        );
+    }
+    renderRole = (formprops) => {
+        return (
+            <Form.Group controlId="exampleForm.ControlSelect1">
+            <Form.Label>Role</Form.Label>
+            <Form.Control {...formprops.input} as="select">
+                <option>Pick your role</option>
+                <option value="se">Software Engineer</option>
+                <option value="con">Consultant</option>
+                <option value="sq">Software Quality</option>
+            </Form.Control>
+            {this.renderError(formprops.meta)}
+        </Form.Group>
+        );
+    }
+    onSubmit = (formValues, dispatch) => {
+        this.props.registerSubmit(formValues)
+        dispatch(reset('register'))
+    }
+    toLogin = () => {
+        this.props.emptyError()
+        this.props.isLogin(true)
+        this.props.isRegister(false)
+    }
     render() {
         return (
             <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -10,31 +80,17 @@ class Register extends React.Component {
                     <div className="row">
                         <div className="col-lg-6 offset-lg-3" style={{border: '1px solid grey', padding: '15px'}}>
                             <h3 className="text-center">Form Register</h3>
-                            <Form>
-                                <Form.Group>
-                                    <Form.Label>Name:</Form.Label>
-                                    <Form.Control type="text" placeholder="enter your name..." />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Email:</Form.Label>
-                                    <Form.Control type="text" placeholder="enter your email..." />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Password:</Form.Label>
-                                    <Form.Control type="password" placeholder="enter your password..." />
-                                </Form.Group>
-                                <Form.Group controlId="exampleForm.ControlSelect1">
-                                    <Form.Label>Role</Form.Label>
-                                    <Form.Control as="select">
-                                        <option>Software Engineer</option>
-                                        <option>Consultant</option>
-                                        <option>Software Quality</option>
-                                    </Form.Control>
-                                </Form.Group>
+                            {this.props.errorServer !== '' ? <Alert variant='danger'>{this.props.errorServer}</Alert> : undefined}
+                            <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                               <Field name="name" component={this.renderName}/>
+                               <Field name="email" component={this.renderEmail}/>
+                                <Field name="password" component={this.renderPassword}/>
+                               <Field name="role" component={this.renderRole}/>
                                 <div className="text-center">
-                                <Button variant="outline-primary">Submit</Button>
+                                <button className="btn btn-primary">Submit</button>
                                 </div>
                             </Form>
+                            <button onClick={this.toLogin} className="btn btn-primary">Back</button>
                         </div>
                     </div>
                 </div>
@@ -43,4 +99,30 @@ class Register extends React.Component {
     }
 }
 
-export default Register
+const validate = (formValues) => {
+    const errors = {}
+    if(!formValues.name){
+        errors.name= 'name must be required'
+    }
+
+    if(!formValues.email){
+        errors.email='email must be required'
+    }else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formValues.email)){
+        errors.email="email format invalid"
+    }
+
+    if(!formValues.password){
+        errors.password='password must be required'
+    }else if(formValues.password.length < 6){
+        errors.password= 'minimum length password is 6'
+    }
+
+    if(!formValues.role){
+        errors.role='please pick your role'
+    }
+
+    return errors
+}
+const formWrapped = reduxForm({form: 'register', validate})(Register)
+
+export default connect(null, {registerSubmit, isLogin, isRegister, emptyError})(formWrapped)

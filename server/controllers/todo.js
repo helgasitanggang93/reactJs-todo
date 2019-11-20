@@ -12,7 +12,7 @@ class ControllerTodo {
             createdAt: new Date(),
             updatedAt: new Date()
         })
-        .then((data) => {
+        .then(() => {
            
             res.status(201).json({
                 message: 'data created'

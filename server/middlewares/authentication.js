@@ -1,8 +1,10 @@
-const jwt = require('jsonwebtoken')
+const {verify} = require('../helpers/jwt')
 const User = require('../models/user')
 
 const isLogin = (req, res, next) => {
-    let payload = jwt.verify(req.headers.token, process.env.SECRET)
+    console.log('masuuk isLogin')
+    console.log(req.headers)
+    let payload = verify(req.headers.token, process.env.SECRET)
     if(req.headers.hasOwnProperty('token')){
         User.findOne({
             email: payload.email

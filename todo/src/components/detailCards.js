@@ -40,7 +40,7 @@ class DetailTodo extends React.Component {
     }
 
     render(){
-        const {title, description, due_date, id, type} = this.props.reducer.detail
+        const {title, description, due_date, _id, type} = this.props.reducer.detail
         return(
             <div>
             <Modal show={this.props.reducer.isDetail} >
@@ -65,14 +65,14 @@ class DetailTodo extends React.Component {
                         <div className="row">
                             <div className="col">
                                 {type === 'done' ? 
-                                 <Button onClick={() => this.changeStatusDone(id, 'urgent')} className="m-1" variant="info">Undone</Button> : 
-                                 <Button onClick={() => this.changeStatusDone(id, 'done')} className="m-1" variant="info">Done</Button>}
+                                 <Button onClick={() => this.changeStatusDone(_id, 'urgent')} className="m-1" variant="info">Undone</Button> : 
+                                 <Button onClick={() => this.changeStatusDone(_id, 'done')} className="m-1" variant="info">Done</Button>}
                             </div>
                             <div className="col">
-                                {type === 'urgent' ? <EditFormTodo idTodo={id}/>: null}
+                                {type === 'urgent' ? <EditFormTodo idTodo={_id}/>: null}
                             </div>
                             <div className="col">
-                                <Button onClick={() => this.deleteTodo(id)} className="m-1" variant="danger">Delete</Button>
+                                <Button onClick={() => this.deleteTodo(_id)} className="m-1" variant="danger">Delete</Button>
                             </div>
                         </div>
                     </div>

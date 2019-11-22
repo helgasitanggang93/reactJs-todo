@@ -6,6 +6,7 @@ const todoSchema = new Schema({
     type: String,
     due_date: String,
     user: {type: Schema.Types.ObjectId, ref: 'User'},
+    image: String,
     createdAt: Date,
     updatedAt: Date
 })

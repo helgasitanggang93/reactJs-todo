@@ -20,6 +20,7 @@ class TodosList extends React.Component {
           due_date={element.due_date}
           title={element.title}
           status={element.type}
+          image={element.image}
           />
           </div>
         })

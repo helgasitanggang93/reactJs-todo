@@ -40,7 +40,7 @@ class DetailTodo extends React.Component {
     }
 
     render(){
-        const {title, description, due_date, _id, type} = this.props.reducer.detail
+        const {title, description, due_date, _id, type, image} = this.props.reducer.detail
         return(
             <div>
             <Modal show={this.props.reducer.isDetail} >
@@ -50,6 +50,7 @@ class DetailTodo extends React.Component {
                 </Modal.Header>
                 <Modal.Body>
                 <Card.Body>
+                    <Card.Img variant="top" src={image} />
                     <Card.Title>
                        Title: {title}
                     </Card.Title>   

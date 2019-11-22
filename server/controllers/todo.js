@@ -1,14 +1,17 @@
 const Todo = require('../models/todo')
+const cloudinary = require('cloudinary')
 
 class ControllerTodo {
     static create(req,res){
-        const {title, description, type, due_date, userId} = req.body
+        console.log(req.body)
+        const {title, description, type, due_date, userId, image} = req.body
         Todo.create({
             title,
             description,
             type,
             due_date,
             user: userId,
+            image: image,
             createdAt: new Date(),
             updatedAt: new Date()
         })
@@ -50,13 +53,14 @@ class ControllerTodo {
 
     static update(req, res){
         const {id} = req.params
-        const {title, description, type, due_date} = req.body
+        const {title, description, type, due_date,image} = req.body
         let obj = {
             updatedAt: new Date(),
             title,
             description,
             type,
-            due_date
+            due_date,
+            image
         }
 
         for (const key in obj) {
@@ -84,6 +88,31 @@ class ControllerTodo {
         .catch(({errors})=>{
             res.status(204).json(errors)
         })
+    }
+
+    static images(req, res, next){
+        cloudinary.config({
+            cloud_name: process.env.CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET
+        })
+        if(!req.file){
+            res.status(401).json({
+                message: 'file bukan gambar cuk jaran'
+            })
+        }else {
+            cloudinary.uploader.upload(req.file.path)
+            .then(result =>{
+                res.status(200).json({
+                    link: result.url
+                })
+            })
+            .catch(() => {
+                res.status(204).json({
+                    message: 'problem with upload image'
+                })
+            })
+        } 
     }
 }
 

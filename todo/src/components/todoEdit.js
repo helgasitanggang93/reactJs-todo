@@ -26,7 +26,7 @@ class EditFormTodo extends React.Component {
                  Update
             </Button>
             <FormTodo
-            initialValues={this.props.reducer.detail}
+              initialValues={this.props.reducer.detail}
               closeModal={this.handleClose}
               onSubmit={this.onSubmit}
               show={this.props.reducer.isForm}

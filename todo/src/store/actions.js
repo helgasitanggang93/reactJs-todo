@@ -1,4 +1,6 @@
 import axiosTodo from '../apis/api_todo';
+import Swal from 'sweetalert2'
+
 
 export const sortByDue = () => (dispatch, getState) => {
    
@@ -120,56 +122,77 @@ export const fetchDetailTodo = (id) => dispatch =>{
    })
 }
 
-export const createTodo = (values) => (dispatch, getState) => {
-    axiosTodo.defaults.headers.common["token"] = localStorage.token;
-    const {title, description, due_date} = values
-    axiosTodo.post(`/todos`, {
+export const createTodo = values => async dispatch => {
+    try {
+        const {title, description, due_date} = values
+        axiosTodo.defaults.headers.common["token"] = localStorage.token;
+        let formdata = new FormData()
+        formdata.append('image', values.image[0])
+        let imageLink = await axiosTodo.post('/upload', formdata)
+        await axiosTodo.post(`/todos`, {
         title: title,
         description: description,
         due_date: due_date,
-        type: 'urgent'
+        type: 'urgent',
+        image: imageLink.data.link
     })
-    .then(()=>{
-        return axiosTodo.get('/todos')
+    let allData = await axiosTodo.get('/todos')
+    dispatch({
+        type:'FETCH_TODO_DATA',
+        payload: allData.data
     })
-    .then(({data})=>{
-         dispatch({
-            type:'FETCH_TODO_DATA',
-            payload: data
-        })
-
-    })
-    .catch(err=> {
+    }catch(error) {
         dispatch({
             type:'ITEM_ERROR',
-            payload: err
+            payload: error
         })
-    })
+    }
 }
 
-export const updateTodo = (id, values) => (dispatch, getState) =>{
+export const updateTodo = (id, values) => async (dispatch, getState) =>{
     axiosTodo.defaults.headers.common["token"] = localStorage.token;
     let newArr = getState().reducer.todos.filter(element =>{
         return element._id !== id
     })
-    axiosTodo.patch(`/todos/${id}`,{
-        title: values.title,
-        description: values.description,
-        due_date: values.due_date
-    })
+    if(typeof values.image === 'object'){
+        try {
+            let formdata = new FormData()
+            formdata.append('image', values.image[0])
+            let imageLink = await axiosTodo.post('/upload', formdata)
+            let {data} =  await axiosTodo.patch(`/todos/${id}`,{
+                title: values.title,
+                description: values.description,
+                due_date: values.due_date,
+                image: imageLink.data.link})
+                dispatch({
+                    type: 'FETCH_TODO_DATA',
+                    payload: [...newArr, data],
+                })
+        }catch(error){
+            dispatch({
+                type:'ITEM_ERROR',
+                payload: error
+            })
 
-    .then(({data})=>{
-        dispatch({
-            type: 'FETCH_TODO_DATA',
-            payload: [...newArr, data],
-        })        
-    })
-    .catch(err=>{
-        dispatch({
-            type:'ITEM_ERROR',
-            payload: err
-        })
-    })
+        } 
+    }else if(typeof values.image === 'string'){
+        try {
+            let {data} =  await axiosTodo.patch(`/todos/${id}`,{
+                title: values.title,
+                description: values.description,
+                due_date: values.due_date})
+                dispatch({
+                    type: 'FETCH_TODO_DATA',
+                    payload: [...newArr, data],
+                })
+        } catch (error) {
+            dispatch({
+                type:'ITEM_ERROR',
+                payload: error
+            })
+            
+        }
+    }
 }
 
 export const deleteTodo = (id) => (dispatch, getState) => {
@@ -238,6 +261,8 @@ export const registerSubmit = (values) => dispatch => {
             type:'ITEM_ERROR',
             payload: ''
         })
+
+        Swal.fire('congrats new comer, please login')
 
     })
     .catch(({response})=>{

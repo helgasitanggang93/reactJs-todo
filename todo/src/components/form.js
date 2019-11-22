@@ -14,7 +14,6 @@ class FormTodo extends React.Component {
     }
 
     renderInput = (formProps) => { 
-       
         return (
             <Form.Group>
                 <Form.Label>Title</Form.Label>
@@ -42,13 +41,25 @@ class FormTodo extends React.Component {
     }
 
     renderDate = (formProps) => {
-        
         return (
             <Form.Group>
                 <Form.Label>Due Date</Form.Label>
                 <Form.Control
                 {...formProps.input}
                 type="date"/>
+                 {this.renderError(formProps.meta)}
+            </Form.Group>
+        );
+    }
+
+    renderImage = (formProps) => {
+        return (
+            <Form.Group>
+                <Form.Label>Image</Form.Label>
+                <input
+                {...formProps.input}
+                value={null}
+                type="file"/>
                  {this.renderError(formProps.meta)}
             </Form.Group>
         );
@@ -67,10 +78,11 @@ class FormTodo extends React.Component {
                         <Modal.Title>Create To Do</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                        <Form onSubmit={this.props.handleSubmit(this.onSubmit)} encType="multipart/form-data">
                             <Field name="title" component={this.renderInput} />
                             <Field name="description" component={this.renderTextArea} />
                             <Field name="due_date" component={this.renderDate} />
+                            <Field name="image" component={this.renderImage}/>
                             <Modal.Footer>
                                 <button className="btn btn-primary">
                                     Save Changes

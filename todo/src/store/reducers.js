@@ -17,7 +17,8 @@ const reducer = (state = initialState, action) => {
         case 'FETCH_TODO_DATA': {
             return {
                 ...state,
-                todos: [...action.payload]
+                todos: [...action.payload],
+                isLoading: false
             }
         }
         case 'FETCH_DETAIL_TODO': {
@@ -32,10 +33,17 @@ const reducer = (state = initialState, action) => {
                 isDetail: action.payload
             }
         }
+        case 'IS_LOADING': {
+            return {
+                ...state,
+                isLoading: true
+            }
+        }
         case 'IS_LOGIN_REGISTER': {
             return {
                 ...state,
-                isLoginRegister: action.payload
+                isLoginRegister: action.payload,
+                isLoading: false
             }
         }
         case 'IS_LOGIN': {

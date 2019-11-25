@@ -14,6 +14,7 @@ class TodosList extends React.Component {
         }
     }
     listTodoRender(){
+       
         return this.props.reducer.todos.map((element, index) => {
           return <div className="col-3" style={{padding:'5px'}}  key={index} > <CardTodo
           id = {element._id}
@@ -24,6 +25,8 @@ class TodosList extends React.Component {
           />
           </div>
         })
+      
+        
       }
       sortByDueDate = () => {
         this.props.sortByDue()
@@ -34,6 +37,7 @@ class TodosList extends React.Component {
             <div className="row">
               <div className="col" style={{marginTop: '5px'}}>
                   <CreateFormTodo/>
+                  {this.props.reducer.isLoading ? <h1 className="text-center">Loading....</h1>: null}
               </div>
             </div>
             <div className= "row">

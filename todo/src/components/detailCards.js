@@ -1,5 +1,5 @@
 import React from 'react'; 
-import {Button, Card, Modal} from 'react-bootstrap';
+import {Button, Card, Modal, Image} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {isDetail, updateDoneTodo, fetchTodoData, deleteTodo, fetchDetailTodo, emptydDetail} from '../store/actions';
 import EditFormTodo from '../components/todoEdit';
@@ -43,14 +43,21 @@ class DetailTodo extends React.Component {
         const {title, description, due_date, _id, type, image} = this.props.reducer.detail
         return(
             <div>
-            <Modal show={this.props.reducer.isDetail} >
+            <Modal  size="md" show={this.props.reducer.isDetail} >
             <Card >
                 <Modal.Header style={{ backgroundColor: this.collorStatus(), padding: '0px' }}>
                     <Button onClick={this.emptyDong}>X</Button>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body >
                 <Card.Body>
-                    <Card.Img variant="top" src={image} />
+                {/* <Card.Img size="sm" variant="top" src={image} /> */}
+                    <div className='container' style={{height: '100px', width: '200px', marginBottom: '30px'}}>
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <Image style={{width: 'auto', height: '130px'}} src={image} alt="gambar"  thumbnail/>
+                            </div>
+                        </div>
+                    </div>
                     <Card.Title>
                        Title: {title}
                     </Card.Title>   

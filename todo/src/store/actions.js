@@ -24,6 +24,13 @@ export const isDetail = (bool) => {
     }
 }
 
+export const shwoLoading = (bool) => {
+    return {
+        type: 'IS_LOADING',
+        payload: bool
+    }
+}
+
 export const isLoginRegister = (bool) => {
     return {
         type: 'IS_LOGIN_REGISTER',
@@ -64,6 +71,11 @@ export const fetchTodoData = () => dispatch => {
     axiosTodo.get('/todos')
     .then(({data})=>{
         dispatch({
+            type: 'IS_LOADING',
+            payload: true
+        })
+
+        dispatch({
             type: 'FETCH_TODO_DATA',
             payload: data
         })
@@ -77,6 +89,9 @@ export const fetchTodoData = () => dispatch => {
 }
 
 export const updateDoneTodo = (id, status) => (dispatch, getState) => {
+    dispatch({
+        type: 'IS_LOADING'
+    })
     let newArr = getState().reducer.todos.filter(element =>{
         return element._id !== id
     })
@@ -85,7 +100,7 @@ export const updateDoneTodo = (id, status) => (dispatch, getState) => {
         type: status
     })
     .then(({data})=>{
-        console.log(data)
+       
         dispatch({
             type: 'FETCH_TODO_DATA',
             payload: [...newArr, data],
@@ -109,6 +124,7 @@ export const fetchDetailTodo = (id) => dispatch =>{
     axiosTodo.defaults.headers.common["token"] = localStorage.token;
    axiosTodo.get(`/todos/${id}`)
    .then(({data})=>{
+       
        dispatch({
             type: 'FETCH_DETAIL_TODO',
             payload: data
@@ -124,18 +140,31 @@ export const fetchDetailTodo = (id) => dispatch =>{
 
 export const createTodo = values => async dispatch => {
     try {
-        const {title, description, due_date} = values
-        axiosTodo.defaults.headers.common["token"] = localStorage.token;
-        let formdata = new FormData()
-        formdata.append('image', values.image[0])
-        let imageLink = await axiosTodo.post('/upload', formdata)
-        await axiosTodo.post(`/todos`, {
-        title: title,
-        description: description,
-        due_date: due_date,
-        type: 'urgent',
-        image: imageLink.data.link
-    })
+        const {title, description, due_date, image} = values
+            axiosTodo.defaults.headers.common["token"] = localStorage.token;
+            if(!image || image.length === 0){
+                await axiosTodo.post(`/todos`, {
+                    title: title,
+                    description: description,
+                    due_date: due_date,
+                    type: 'urgent',
+                    image: 'https://res.cloudinary.com/dpnjbs730/image/upload/v1574668543/no_image_ascr0j.jpg'
+                })
+                
+            }else {
+                let formdata = new FormData()
+                formdata.append('image', image[0])
+                let imageLink = await axiosTodo.post('/upload', formdata)
+                await axiosTodo.post(`/todos`, {
+                title: title,
+                description: description,
+                due_date: due_date,
+                type: 'urgent',
+                image: imageLink.data.link
+            })
+
+            }
+            
     let allData = await axiosTodo.get('/todos')
     dispatch({
         type:'FETCH_TODO_DATA',
@@ -220,6 +249,9 @@ export const loginSubmit = (values) => dispatch => {
     })
     .then(({data})=> {
         localStorage.setItem('token', data.token)
+        dispatch({
+            type: 'IS_LOADING'
+        })
         dispatch({
             type: 'IS_LOGIN_REGISTER',
             payload: false

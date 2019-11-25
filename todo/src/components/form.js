@@ -58,7 +58,7 @@ class FormTodo extends React.Component {
                 <Form.Label>Image</Form.Label>
                 <input
                 {...formProps.input}
-                value={null}
+                value={undefined}
                 type="file"/>
                  {this.renderError(formProps.meta)}
             </Form.Group>
@@ -128,6 +128,15 @@ const validate = (formValues) => {
         }
     }
 
+    if(typeof formValues.image === 'object'){
+        if(formValues.image[0]){
+            if(formValues.image[0].size > 5242880){
+                errors.image = 'maximum file size is 5 MB'
+            }
+
+        }
+        
+    }
     return errors
 }
 

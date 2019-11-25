@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {isLoginRegister} from '../store/actions';
+import {isLoginRegister, isLogin} from '../store/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Navbar extends React.Component {
@@ -22,6 +22,7 @@ class Navbar extends React.Component {
     logOutButt = () => {
         localStorage.clear()
         this.props.isLoginRegister(true)
+        this.props.isLogin(true)
         
     }
 render(){
@@ -37,4 +38,4 @@ const mapStoreToprops = state => {
     return state
 }
 
-export default connect(mapStoreToprops, {isLoginRegister})(Navbar)
+export default connect(mapStoreToprops, {isLoginRegister, isLogin})(Navbar)

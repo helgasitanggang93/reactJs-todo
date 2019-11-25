@@ -3,7 +3,7 @@ const cloudinary = require('cloudinary')
 
 class ControllerTodo {
     static create(req,res){
-        console.log(req.body)
+
         const {title, description, type, due_date, userId, image} = req.body
         Todo.create({
             title,
@@ -90,7 +90,8 @@ class ControllerTodo {
         })
     }
 
-    static images(req, res, next){
+    static images(req, res){
+        
         cloudinary.config({
             cloud_name: process.env.CLOUD_NAME,
             api_key: process.env.CLOUDINARY_API_KEY,
@@ -98,7 +99,7 @@ class ControllerTodo {
         })
         if(!req.file){
             res.status(401).json({
-                message: 'file bukan gambar cuk jaran'
+                message: 'required image'
             })
         }else {
             cloudinary.uploader.upload(req.file.path)

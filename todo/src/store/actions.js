@@ -186,6 +186,7 @@ export const updateTodo = (id, values) => async (dispatch, getState) =>{
     })
     if(typeof values.image === 'object'){
         try {
+            dispatch({type: 'IS_LOADING'})
             let formdata = new FormData()
             formdata.append('image', values.image[0])
             let imageLink = await axiosTodo.post('/upload', formdata)
@@ -196,7 +197,7 @@ export const updateTodo = (id, values) => async (dispatch, getState) =>{
                 image: imageLink.data.link})
                 dispatch({
                     type: 'FETCH_TODO_DATA',
-                    payload: [...newArr, data],
+                    payload: [data, ...newArr],
                 })
         }catch(error){
             dispatch({
@@ -207,13 +208,14 @@ export const updateTodo = (id, values) => async (dispatch, getState) =>{
         } 
     }else if(typeof values.image === 'string'){
         try {
+            dispatch({type: 'IS_LOADING'})
             let {data} =  await axiosTodo.patch(`/todos/${id}`,{
                 title: values.title,
                 description: values.description,
                 due_date: values.due_date})
                 dispatch({
                     type: 'FETCH_TODO_DATA',
-                    payload: [...newArr, data],
+                    payload: [data, ...newArr],
                 })
         } catch (error) {
             dispatch({
@@ -226,6 +228,9 @@ export const updateTodo = (id, values) => async (dispatch, getState) =>{
 }
 
 export const deleteTodo = (id) => (dispatch, getState) => {
+    dispatch({
+        type: 'IS_LOADING'
+    })
     axiosTodo.defaults.headers.common["token"] = localStorage.token;
     let newArr = getState().reducer.todos.filter(element=> element._id !== id)
     axiosTodo.delete(`/todos/${id}`)
@@ -250,9 +255,6 @@ export const loginSubmit = (values) => dispatch => {
     })
     .then(({data})=> {
         localStorage.setItem('token', data.token)
-        dispatch({
-            type: 'IS_LOADING'
-        })
         dispatch({
             type: 'IS_LOGIN_REGISTER',
             payload: false

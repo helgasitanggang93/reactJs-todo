@@ -24,10 +24,9 @@ export const isDetail = (bool) => {
     }
 }
 
-export const shwoLoading = (bool) => {
+export const shwoLoading = () => {
     return {
-        type: 'IS_LOADING',
-        payload: bool
+        type: 'IS_LOADING'
     }
 }
 
@@ -103,7 +102,7 @@ export const updateDoneTodo = (id, status) => (dispatch, getState) => {
        
         dispatch({
             type: 'FETCH_TODO_DATA',
-            payload: [...newArr, data],
+            payload: [data, ...newArr],
         })
 
         dispatch({
@@ -143,6 +142,7 @@ export const createTodo = values => async dispatch => {
         const {title, description, due_date, image} = values
             axiosTodo.defaults.headers.common["token"] = localStorage.token;
             if(!image || image.length === 0){
+                dispatch({type: 'IS_LOADING'})
                 await axiosTodo.post(`/todos`, {
                     title: title,
                     description: description,
@@ -152,6 +152,7 @@ export const createTodo = values => async dispatch => {
                 })
                 
             }else {
+                dispatch({type: 'IS_LOADING'})
                 let formdata = new FormData()
                 formdata.append('image', image[0])
                 let imageLink = await axiosTodo.post('/upload', formdata)

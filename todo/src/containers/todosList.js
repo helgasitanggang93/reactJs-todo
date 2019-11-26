@@ -4,7 +4,7 @@ import CardTodo from '../components/cards';
 import DetaiTodo from '../components/detailCards'
 import {connect} from 'react-redux';
 import {isDetail, fetchTodoData, formModalHandler, sortByDue} from '../store/actions';
-import {Dropdown, DropdownButton} from 'react-bootstrap';
+import {Dropdown, DropdownButton, Spinner} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class TodosList extends React.Component {
@@ -14,17 +14,18 @@ class TodosList extends React.Component {
         }
     }
     listTodoRender(){
-       
         return this.props.reducer.todos.map((element, index) => {
-          return <div className="col-3" style={{padding:'5px'}}  key={index} > <CardTodo
+          return( <div className="col-3" style={{padding:'5px'}}  key={index} >  
+          {this.props.reducer.isLoading ?  <Spinner animation="grow" variant="primary" size="md" /> : 
+          <CardTodo
           id = {element._id}
           due_date={element.due_date}
           title={element.title}
           status={element.type}
           image={element.image}
-          />
-          </div>
-        })
+          />}
+          </div>)
+        }) 
       
         
       }
@@ -37,7 +38,6 @@ class TodosList extends React.Component {
             <div className="row">
               <div className="col" style={{marginTop: '5px'}}>
                   <CreateFormTodo/>
-                  {this.props.reducer.isLoading ? <h1 className="text-center">Loading....</h1>: null}
               </div>
             </div>
             <div className= "row">

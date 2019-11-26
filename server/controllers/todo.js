@@ -30,7 +30,7 @@ class ControllerTodo {
         const {userId} = req.body
         Todo.find({
             user: userId
-        })
+        }, null, {sort:{_id:-1}})
         .populate({path:'user', select:'name email role'})
         .then(datas => {
            res.status(200).json(datas)
@@ -91,7 +91,7 @@ class ControllerTodo {
     }
 
     static images(req, res){
-        
+
         cloudinary.config({
             cloud_name: process.env.CLOUD_NAME,
             api_key: process.env.CLOUDINARY_API_KEY,

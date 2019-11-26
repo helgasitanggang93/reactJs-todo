@@ -1,5 +1,5 @@
 import React from 'react'; 
-import {Button, Card, Modal, Image} from 'react-bootstrap';
+import {Button, Card, Modal, Image, Spinner} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {isDetail, updateDoneTodo, fetchTodoData, deleteTodo, fetchDetailTodo, emptydDetail} from '../store/actions';
 import EditFormTodo from '../components/todoEdit';
@@ -54,7 +54,7 @@ class DetailTodo extends React.Component {
                     <div className='container' style={{height: '100px', width: '200px', marginBottom: '30px'}}>
                         <div className="row">
                             <div className="col-lg-12">
-                                <Image style={{width: 'auto', height: '130px'}} src={image} alt="gambar"  thumbnail/>
+                                {image ? <Image style={{width: 'auto', height: '130px'}} src={image} alt="gambar"  thumbnail/> : <Spinner animation="border" variant="primary" />}
                             </div>
                         </div>
                     </div>

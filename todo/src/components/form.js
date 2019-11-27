@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Form , Alert} from 'react-bootstrap';
+import {Modal, Form , Alert, Button} from 'react-bootstrap';
 import {Field, reduxForm, reset} from 'redux-form';
 
 class FormTodo extends React.Component {
@@ -74,8 +74,9 @@ class FormTodo extends React.Component {
         return(
            <div>
                 <Modal show={this.props.show} onHide={this.props.closeModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Create To Do</Modal.Title>
+                    <Modal.Header>
+                            <Modal.Title>{this.props.themeOfModal}</Modal.Title>
+                            <Button onClick={this.props.closeModal}>X</Button>
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.props.handleSubmit(this.onSubmit)} encType="multipart/form-data">

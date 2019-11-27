@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://frozen-peak-60422.herokuapp.com'
 })

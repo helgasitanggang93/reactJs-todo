@@ -11,7 +11,6 @@ class CreateFormTodo extends React.Component {
       handleClose = () =>{
         this.props.formModalHandler(false)
       }
-
     onSubmit = (formValues)=>{
         this.props.createTodo(formValues)
         this.handleClose()
@@ -23,6 +22,7 @@ class CreateFormTodo extends React.Component {
                     Create To Do
             </Button>
             <FormTodo
+              themeOfModal={'Create Todo'}
               closeModal={this.handleClose}
               onSubmit={this.onSubmit}
               show={this.props.reducer.isForm}

@@ -17,6 +17,7 @@ export const sortByDue = () => (dispatch, getState) => {
     })
 }
 
+
 export const isDetail = (bool) => {
     return {
         type: 'IS_DETAIL',
@@ -249,16 +250,19 @@ export const deleteTodo = (id) => (dispatch, getState) => {
 }
 
 export const loginSubmit = (values) => dispatch => {
+    dispatch({
+        type: 'IS_LOADING'
+    })
     axiosTodo.post('/login', {
         email: values.email,
         password: values.password
     })
     .then(({data})=> {
-        localStorage.setItem('token', data.token)
         dispatch({
             type: 'IS_LOGIN_REGISTER',
             payload: false
         })
+        localStorage.setItem('token', data.token)
         dispatch({
             type:'ITEM_ERROR',
             payload: ''

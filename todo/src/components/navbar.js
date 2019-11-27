@@ -13,7 +13,7 @@ class Navbar extends React.Component {
     }
     isLogin = () => {
         return (
-            <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: '#3c1a5b'}}>
+            <nav className="navbar navbar-expand-lg navbar-light justify-content-between" style={{backgroundColor: '#3c1a5b'}}>
                 <h3 className="navbar-brand" style={{color: '#fff748'}}>REACT TO DO</h3>
                 <button onClick={this.logOutButt} className="btn btn-secondary">LOG OUT</button>
             </nav>

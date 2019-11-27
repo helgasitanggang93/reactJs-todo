@@ -38,7 +38,15 @@ class DetailTodo extends React.Component {
         if(due_date) return formatDate(due_date)
     
     }
-
+    updateComponent = () => {
+        if(this.props.reducer.detail){
+            if(this.props.reducer.detail.type === 'urgent'){
+                return <div className="col">
+                <EditFormTodo idTodo={this.props.reducer.detail._id}/>
+             </div>
+            }
+        }
+    }
     render(){
         const {title, description, due_date, _id, type, image} = this.props.reducer.detail
         return(
@@ -46,42 +54,46 @@ class DetailTodo extends React.Component {
             <Modal  size="md" show={this.props.reducer.isDetail} >
             <Card >
                 <Modal.Header style={{ backgroundColor: this.collorStatus(), padding: '0px' }}>
-                    <Button onClick={this.emptyDong}>X</Button>
+                   <h5> Detail Todo</h5>
                 </Modal.Header>
                 <Modal.Body >
                 <Card.Body>
-                {/* <Card.Img size="sm" variant="top" src={image} /> */}
+                    <Card.Title className="text-center">
+                        <h3>
+                        {title}
+                        </h3>
+                    </Card.Title>  
                     <div className='container' style={{height: '100px', width: '200px', marginBottom: '30px'}}>
                         <div className="row">
                             <div className="col-lg-12">
                                 {image ? <Image style={{width: 'auto', height: '130px'}} src={image} alt="gambar"  thumbnail/> : <Spinner animation="border" variant="primary" />}
                             </div>
                         </div>
-                    </div>
-                    <Card.Title>
-                       Title: {title}
-                    </Card.Title>   
-                   <Card.Text> 
-                      Due Date:{this.setDate(due_date)}
+                    </div> 
+                   <Card.Text className="text-center"> 
+                       <span style={{fontSize: 'smaller'}}> Due Date:</span>
+                       <p> {this.setDate(due_date)}</p>                   
                     </Card.Text> 
-                    <Card.Text> 
-                      Desciption: {description} 
+                    <Card.Text className="text-center">
+                    <span style={{fontSize: 'smaller'}}>Desciption:</span> 
+                    <p>{description}</p>
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    <div className="container">
+                    <div style={{padding: '0px', margin: '0px'}} className="container">
                         <div className="row">
                             <div className="col">
                                 {type === 'done' ? 
-                                 <Button onClick={() => this.changeStatusDone(_id, 'urgent')} className="m-1" variant="info">Undone</Button> : 
-                                 <Button onClick={() => this.changeStatusDone(_id, 'done')} className="m-1" variant="info">Done</Button>}
+                                 <Button onClick={() => this.changeStatusDone(_id, 'urgent')}  variant="info">Undone</Button> : 
+                                 <Button onClick={() => this.changeStatusDone(_id, 'done')}  variant="info">Done</Button>}
                             </div>
+                            {this.updateComponent()}
                             <div className="col">
-                                {type === 'urgent' ? <EditFormTodo idTodo={_id}/>: null}
+                                <Button onClick={() => this.deleteTodo(_id)}  variant="danger">Delete</Button>
                             </div>
-                            <div className="col">
-                                <Button onClick={() => this.deleteTodo(_id)} className="m-1" variant="danger">Delete</Button>
-                            </div>
+                            <div  className="col">
+                                 <Button type="button"  variant="primary" onClick={this.emptyDong}>Close</Button>
+                           </div>
                         </div>
                     </div>
                 </Card.Footer>

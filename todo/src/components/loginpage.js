@@ -52,7 +52,9 @@ class Login extends React.Component {
                                 <button className="btn btn-primary">Login</button> <br/>
                                 </div>
                             </Form>
-                            <button onClick={this.toRegister} className="btn btn-primary">Register</button>
+                            <div className="text-center">
+                            <button type="button" className="btn btn-link" onClick={this.toRegister}>Don't Have Any Account yet?</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {updateTodo, isDetail, formModalHandler, fetchDetailTodo} from '../store/actions';
 import FormTodo from '../components/form';
 import {Button} from 'react-bootstrap';
+
 class EditFormTodo extends React.Component {
     componentDidMount(){
         this.props.fetchDetailTodo(this.props.idTodo)
@@ -10,7 +11,7 @@ class EditFormTodo extends React.Component {
     handleOpenModal = () => {
         this.props.formModalHandler(true)
       }
-      handleClose = () =>{
+      handleClose = () => {
         this.props.formModalHandler(false)
       }
 
@@ -22,11 +23,12 @@ class EditFormTodo extends React.Component {
     render(){
         return(
            <div>
-            <Button className="m-1" variant="warning" onClick={this.handleOpenModal}>
+            <Button variant="warning" onClick={this.handleOpenModal}>
                  Update
             </Button>
             <FormTodo
               initialValues={this.props.reducer.detail}
+              themeOfModal={'Update Todo'}
               closeModal={this.handleClose}
               onSubmit={this.onSubmit}
               show={this.props.reducer.isForm}

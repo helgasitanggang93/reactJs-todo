@@ -70,13 +70,18 @@ class FormTodo extends React.Component {
         this.props.closeModal()
         dispatch(reset('formTodo'))
     }
+    clearCloseModal = () => {
+       this.props.dispatch(reset('formTodo'))
+        this.props.closeModal()
+        
+    }
     render(){
         return(
            <div>
-                <Modal show={this.props.show} onHide={this.props.closeModal}>
+                <Modal show={this.props.show}>
                     <Modal.Header>
                             <Modal.Title>{this.props.themeOfModal}</Modal.Title>
-                            <Button onClick={this.props.closeModal}>X</Button>
+                            <Button onClick={this.clearCloseModal}>X</Button>
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.props.handleSubmit(this.onSubmit)} encType="multipart/form-data">
@@ -98,12 +103,13 @@ class FormTodo extends React.Component {
 }
 
 const validate = (formValues) => {
+    
     const errors = {}
     
     if(!formValues.title){
         errors.title = 'You must enter a title'
-    }else if(formValues.title.length > 20){
-        errors.title = 'Must be 20 Characters or less'
+    }else if(formValues.title.length > 40){
+        errors.title = 'Must be 40 Characters or less'
     }
 
     if(!formValues.description){
@@ -131,8 +137,11 @@ const validate = (formValues) => {
 
     if(typeof formValues.image === 'object'){
         if(formValues.image[0]){
+            console.log(formValues.image[0])
             if(formValues.image[0].size > 5242880){
                 errors.image = 'maximum file size is 5 MB'
+            }else if(formValues.image[0].type !== 'image/png' && formValues.image[0].type !== 'image/jpg' && formValues.image[0].type !== 'image/jpeg'){
+                errors.image = 'should upload jpg, png or jpeg'
             }
 
         }

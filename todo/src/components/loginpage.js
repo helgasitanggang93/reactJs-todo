@@ -31,6 +31,7 @@ class Login extends React.Component {
     onSubmit = (formValues, dispatch) => {
         this.props.loginSubmit(formValues)
         dispatch(reset('loginpage'))
+        
     }
     toRegister = () => {
         this.props.emptyError()

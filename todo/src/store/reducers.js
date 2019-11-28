@@ -67,7 +67,8 @@ const reducer = (state = initialState, action) => {
         case 'ITEM_ERROR': {
             return {
                 ...state,
-                errorMessage: action.payload
+                errorMessage: action.payload,
+                isLoading: false
             }
         }
         case 'FORM_MODAL_HANDLER' : {

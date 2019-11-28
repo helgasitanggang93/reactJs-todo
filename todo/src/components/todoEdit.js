@@ -13,6 +13,7 @@ class EditFormTodo extends React.Component {
       }
       handleClose = () => {
         this.props.formModalHandler(false)
+        this.props.isDetail(false)
       }
 
     onSubmit = (formValues)=>{

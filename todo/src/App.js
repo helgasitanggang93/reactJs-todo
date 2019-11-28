@@ -14,6 +14,7 @@ class App extends React.Component {
       this.props.isLogin(true)
     }else{
       this.props.isLoginRegister(false)
+      
     }
   }
   render(){

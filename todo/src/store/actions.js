@@ -149,7 +149,7 @@ export const createTodo = values => async dispatch => {
                     description: description,
                     due_date: due_date,
                     type: 'urgent',
-                    image: 'https://res.cloudinary.com/dpnjbs730/image/upload/v1574668543/no_image_ascr0j.jpg'
+                    image: 'https://res.cloudinary.com/dpnjbs730/image/upload/v1574910240/no_image_yet_fmxurx.jpg'
                 })
                 
             }else {

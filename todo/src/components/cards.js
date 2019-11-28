@@ -24,17 +24,21 @@ class CardTodo extends React.Component {
         const {due_date} = this.props.appProps
         return formatDate(due_date)
     }
-
+    colorCard = () => {
+        return {
+            color : '#ffffff' 
+        }
+    }
     render (){
         const { title} = this.props.appProps
         return (
             <div>
                 <Card style={{ width: '15rem', backgroundColor: this.collorStatus()}}>
                     <Card.Body>
-                        <Card.Title style={{ color: '#ffffff' }}> Title: </Card.Title>
-                        <Card.Title style={{ color: '#ffffff' }}>{title}</Card.Title>
-                        <Card.Text style={{ color: '#ffffff' }}> Due Date: </Card.Text>
-                        <Card.Text style={{ color: '#ffffff' }}> {this.setDate()} </Card.Text>
+                        <Card.Title style={this.colorCard()}> Title: </Card.Title>
+                        <Card.Title style={this.colorCard()}>{title}</Card.Title>
+                        <Card.Text style={this.colorCard()}> Due Date: </Card.Text>
+                        <Card.Text style={this.colorCard()}> {this.setDate()} </Card.Text>
                         <Button onClick={this.openModal } style={{ backgroundColor: '#ffffff', color: this.collorStatus(), borderStyle: 'none' }}>See Detail</Button>
                     </Card.Body>
                 </Card>

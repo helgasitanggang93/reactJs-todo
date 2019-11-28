@@ -1,5 +1,5 @@
 import React from 'react'; 
-import {Button, Card, Modal, Image, Spinner} from 'react-bootstrap';
+import {Button, Modal, Spinner} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {isDetail, updateDoneTodo, fetchTodoData, deleteTodo, fetchDetailTodo, emptydDetail} from '../store/actions';
 import EditFormTodo from '../components/todoEdit';
@@ -52,34 +52,32 @@ class DetailTodo extends React.Component {
         return(
             <div>
             <Modal  size="md" show={this.props.reducer.isDetail} >
-            <Card >
+
                 <Modal.Header style={{ backgroundColor: this.collorStatus(), padding: '0px' }}>
                    <h5> Detail Todo</h5>
                 </Modal.Header>
                 <Modal.Body >
-                <Card.Body>
-                    <Card.Title className="text-center">
+                <div className="card-body">
+                    <div className="card-title text-center">
                         <h3>
                         {title}
                         </h3>
-                    </Card.Title>  
-                    <div className='container' style={{height: '100px', width: '200px', marginBottom: '30px'}}>
-                        <div className="row">
-                            <div className="col-lg-12">
-                                {image ? <Image style={{width: 'auto', height: '130px'}} src={image} alt="gambar"  thumbnail/> : <Spinner animation="border" variant="primary" />}
-                            </div>
-                        </div>
-                    </div> 
-                   <Card.Text className="text-center"> 
+                    </div>
+                    <div className="text-center">  
+                        {image ? <img className="card-img-top" style={{maxWidth: '300px', maxHeight: '200px'}} src={image} alt="gambar"/> : <Spinner animation="border" variant="primary" />}
+                    </div>
+                   <div className="card-text text-center"> 
+                        <div>
                        <span style={{fontSize: 'smaller'}}> Due Date:</span>
-                       <p> {this.setDate(due_date)}</p>                   
-                    </Card.Text> 
-                    <Card.Text className="text-center">
+                        <p> {this.setDate(due_date)} </p>
+                        </div>            
+                    </div> 
+                    <div className="card-text text-center">
                     <span style={{fontSize: 'smaller'}}>Desciption:</span> 
                     <p>{description}</p>
-                    </Card.Text>
-                </Card.Body>
-                <Card.Footer>
+                    </div>
+                </div>
+                <div className="card-footer">
                     <div style={{padding: '0px', margin: '0px'}} className="container">
                         <div className="row">
                             <div className="col">
@@ -96,9 +94,8 @@ class DetailTodo extends React.Component {
                            </div>
                         </div>
                     </div>
-                </Card.Footer>
+                </div>
                 </Modal.Body>
-            </Card>
             </Modal>
         </div>
         );

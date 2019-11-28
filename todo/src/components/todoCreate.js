@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {createTodo, formModalHandler} from '../store/actions';
+import {createTodo, formModalHandler, isDetail} from '../store/actions';
 import FormTodo from '../components/form';
 import {Button} from 'react-bootstrap';
 
@@ -10,6 +10,7 @@ class CreateFormTodo extends React.Component {
       }
       handleClose = () =>{
         this.props.formModalHandler(false)
+        this.props.isDetail(false)
       }
     onSubmit = (formValues)=>{
         this.props.createTodo(formValues)
@@ -36,4 +37,4 @@ const mapStoreToProps = state => {
     return state
 } 
 
-export default connect(mapStoreToProps, {createTodo: createTodo, formModalHandler: formModalHandler})(CreateFormTodo)
+export default connect(mapStoreToProps, {createTodo: createTodo, formModalHandler: formModalHandler, isDetail})(CreateFormTodo)

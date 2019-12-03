@@ -8,6 +8,7 @@
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.10.2",
+    "react-google-login": "^5.0.7",
     "react-redux": "^7.1.1",
     "react-route": "^1.0.3",
     "react-router-dom": "^5.1.2",
@@ -18,7 +19,7 @@
     "sweetalert2": "^9.3.16"
   },
   "scripts": {
-    "start": "PORT=3006 react-scripts start",
+    "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

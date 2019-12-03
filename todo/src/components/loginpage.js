@@ -2,10 +2,13 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Field, reduxForm, reset} from 'redux-form';
 import {connect} from 'react-redux';
-import {loginSubmit, isRegister, isLogin, emptyError} from '../store/actions'
+import {loginSubmit, isRegister, isLogin, emptyError, ggSignIn, fetchTodoData} from '../store/actions'
 import { Form, Alert} from 'react-bootstrap';
+import { GoogleLogin } from 'react-google-login';
+ 
 
 class Login extends React.Component {
+   
     renderEmail = (formprops) => {
         return (
             <Form.Group>
@@ -38,6 +41,11 @@ class Login extends React.Component {
         this.props.isLogin(false)
         this.props.isRegister(true)
     }
+   
+    responseGoogle = response => {
+       this.props.ggSignIn(response.tokenId)
+      }
+
     render() {
         return (
             <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -54,6 +62,12 @@ class Login extends React.Component {
                                 </div>
                             </Form>
                             <div className="text-center">
+                            {/* <div id='google-sign-in-button'/> */}
+                                <GoogleLogin
+                                    clientId='1056392817226-rndeghtfhkcmirvrll080usji8fmted4.apps.googleusercontent.com' //TO BE CREATED
+                                    onSuccess={this.responseGoogle}
+                                    onFailure={this.responseGoogle}
+                                />
                             <button type="button" className="btn btn-link" onClick={this.toRegister}>Don't Have Any Account yet?</button>
                             </div>
                         </div>
@@ -67,4 +81,4 @@ class Login extends React.Component {
 
 
 const formWrapped = reduxForm({form: 'loginpage'})(Login)
-export default connect(null, {loginSubmit, isLogin, isRegister, emptyError})(formWrapped)
+export default connect(null, {loginSubmit, isLogin, isRegister, emptyError, ggSignIn, fetchTodoData})(formWrapped)

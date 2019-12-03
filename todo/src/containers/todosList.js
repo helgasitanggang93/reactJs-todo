@@ -3,7 +3,7 @@ import CreateFormTodo from '../components/todoCreate';
 import CardTodo from '../components/cards';
 import DetaiTodo from '../components/detailCards'
 import {connect} from 'react-redux';
-import {isDetail, fetchTodoData, formModalHandler, sortByDue} from '../store/actions';
+import {isDetail, fetchTodoData, formModalHandler, sortByDue, emptyTodos} from '../store/actions';
 import {Dropdown, DropdownButton, Spinner} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,6 +12,9 @@ class TodosList extends React.Component {
         if(localStorage.token){
             this.props.fetchTodoData()
         }
+    }
+    componentWillUnmount() {
+      this.props.emptyTodos()
     }
     listTodoRender(){
         return this.props.reducer.todos.map((element, index) => {
@@ -61,4 +64,4 @@ const mapStoreToProps = state => {
     return state
 }
 
-export default connect(mapStoreToProps, {isDetail, fetchTodoData, formModalHandler, sortByDue})(TodosList)
+export default connect(mapStoreToProps, {isDetail, fetchTodoData, formModalHandler, sortByDue, emptyTodos})(TodosList)

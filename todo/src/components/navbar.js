@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {isLoginRegister, isLogin} from '../store/actions';
+import {isLoginRegister, isLogin, isGoogleSignIn, emptyTodos, shwoLoading} from '../store/actions';
+import { GoogleLogout } from "react-google-login";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Navbar extends React.Component {
@@ -15,15 +16,30 @@ class Navbar extends React.Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light justify-content-between" style={{backgroundColor: '#3c1a5b'}}>
                 <h3 className="navbar-brand" style={{color: '#fff748'}}>REACT TO DO</h3>
-                <button onClick={this.logOutButt} className="btn btn-secondary">LOG OUT</button>
+        { this.props.reducer.isGoogleSignIn ? this.logOutGoogle() : <button onClick={this.logOutButt} className="btn btn-secondary">LOG OUT</button> }
             </nav>
         );
     }
+    logOutGoogle = () => {
+        return <GoogleLogout
+            render={renderProps => (
+                <button
+                    className="btn btn-secondary"
+                    onClick={renderProps.onClick}
+                >
+                    Log Out
+                </button>
+            )}
+            onLogoutSuccess={this.logOutButt}
+        />
+
+    }
     logOutButt = () => {
-        localStorage.clear()
-        this.props.isLoginRegister(true)
-        this.props.isLogin(true)
-        
+            localStorage.clear()
+          
+             this.props.isLoginRegister(true)
+             this.props.isLogin(true)
+            this.props.isGoogleSignIn(false)
     }
 render(){
     return (
@@ -38,4 +54,4 @@ const mapStoreToprops = state => {
     return state
 }
 
-export default connect(mapStoreToprops, {isLoginRegister, isLogin})(Navbar)
+export default connect(mapStoreToprops, {isLoginRegister, isLogin, isGoogleSignIn, emptyTodos, shwoLoading})(Navbar)

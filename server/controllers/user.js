@@ -1,7 +1,24 @@
 const User = require('../models/user')
 const {compare} = require('../helpers/bycrpt')
 const {sign} = require('../helpers/jwt')
+
 class UserController {
+    static createUserGoogle(req, res) {
+        console.log(req.body.payload)
+        const {email, name, token} = req.body.payload
+        User.create({
+            name,
+            email,
+            password: process.env.GOOGLE_PASSWORD_DEFAULT
+        })
+        .then(() =>{
+            res.status(201).json({token})
+        })
+        .catch(({errors}) => {
+            res.status(400).json(errors)
+        })
+    }
+    
     static create(req,res){
         const {name, email, password, role} = req.body
         User.create({

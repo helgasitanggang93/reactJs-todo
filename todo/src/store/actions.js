@@ -17,6 +17,19 @@ export const sortByDue = () => (dispatch, getState) => {
     })
 }
 
+export const sortByDueDesc = () => (dispatch, getState) => {
+    let sorted = getState().reducer.todos.sort((a, b) =>{
+        let firstDate = new Date(a.due_date).getTime()
+        let secondDate = new Date(b.due_date).getTime()
+
+        return secondDate - firstDate
+    })
+
+    dispatch({
+        type: 'FETCH_TODO_DATA',
+        payload: sorted
+    })
+}
 
 export const isDetail = (bool) => {
     return {
@@ -24,6 +37,14 @@ export const isDetail = (bool) => {
         payload: bool
     }
 }
+
+export const isGoogleSignIn = (bool) => {
+    return {
+        type: 'IS_GOOGLE_SIGN_IN',
+        payload: bool
+    }
+}
+
 
 export const shwoLoading = () => {
     return {
@@ -258,11 +279,11 @@ export const loginSubmit = (values) => dispatch => {
         password: values.password
     })
     .then(({data})=> {
+        localStorage.setItem('token', data.token)
         dispatch({
             type: 'IS_LOGIN_REGISTER',
             payload: false
         })
-        localStorage.setItem('token', data.token)
         dispatch({
             type:'ITEM_ERROR',
             payload: ''
@@ -324,5 +345,51 @@ export const emptydDetail = () => dispatch => {
     dispatch({
         type: 'FETCH_DETAIL_TODO',
         payload: {}
+    })
+}
+
+export const emptyTodos = () => dispatch => {
+    dispatch({
+        type: 'FETCH_TODO_DATA',
+        payload: [],
+    })
+}
+
+export const ggSignIn = (token) => dispatch => {
+    dispatch({
+        type: 'IS_LOADING'
+    })
+    axiosTodo({
+        url: '/gsignin',
+        method: 'POST',
+        headers : {
+            token : token,
+        }   
+    })
+    .then(({data})=> {
+        let token = data.token
+        localStorage.setItem('token', token)
+        dispatch({
+            type: 'IS_GOOGLE_SIGN_IN',
+            payload: true
+        })
+        dispatch({
+            type: 'IS_LOGIN_REGISTER',
+            payload: false
+        })
+        
+        dispatch({
+            type:'ITEM_ERROR',
+            payload: ''
+        })
+        
+    })
+    .catch(error=> {
+        if(error.response.status === 400){
+            dispatch({
+                type:'ITEM_ERROR',
+                payload: 'please login'
+            })
+        }
     })
 }

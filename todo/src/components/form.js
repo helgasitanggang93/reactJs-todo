@@ -1,26 +1,35 @@
 import React from 'react';
-import {Modal, Form , Alert, Button} from 'react-bootstrap';
-import {Field, reduxForm, reset} from 'redux-form';
+import { Modal, Form, Alert, Button } from 'react-bootstrap';
+import { Field, reduxForm, reset } from 'redux-form';
 
 class FormTodo extends React.Component {
-    renderError({error, touched}){
+
+    renderError({ error, touched }) {
         if (touched && error) {
             return (
                 <Alert variant="danger">
                     {error}
                 </Alert>
             );
-        }       
+        }
     }
 
-    renderInput = (formProps) => { 
+    lengthValue = (limit, lengthValue = 0) => {
+        return limit -= lengthValue
+    }
+
+    renderInput = (formProps) => {
         return (
             <Form.Group>
                 <Form.Label>Title</Form.Label>
-                <Form.Control 
-                {...formProps.input}
-                type="text" 
-                placeholder="Enter title" />
+                <Form.Control
+                    {...formProps.input}
+                    type="text"
+                    maxLength="40"
+                    placeholder="Enter title" />
+                <Form.Text className="text-muted">
+                    Maximum length of title: {this.lengthValue(40, formProps.input.value.length)}
+                </Form.Text>
                 {this.renderError(formProps.meta)}
             </Form.Group>
         );
@@ -31,11 +40,15 @@ class FormTodo extends React.Component {
             <Form.Group>
                 <Form.Label>Description</Form.Label>
                 <Form.Control
-                 {...formProps.input}
-                as="textarea" 
-                rows="3" 
-                placeholder="Enter description" />
-                 {this.renderError(formProps.meta)}
+                    {...formProps.input}
+                    as="textarea"
+                    rows="3"
+                    maxLength="200"
+                    placeholder="Enter description" />
+                <Form.Text className="text-muted">
+                    Maximum length of description: {this.lengthValue(200, formProps.input.value.length)}
+                </Form.Text>
+                {this.renderError(formProps.meta)}
             </Form.Group>
         );
     }
@@ -45,9 +58,9 @@ class FormTodo extends React.Component {
             <Form.Group>
                 <Form.Label>Due Date</Form.Label>
                 <Form.Control
-                {...formProps.input}
-                type="date"/>
-                 {this.renderError(formProps.meta)}
+                    {...formProps.input}
+                    type="date" />
+                {this.renderError(formProps.meta)}
             </Form.Group>
         );
     }
@@ -57,38 +70,39 @@ class FormTodo extends React.Component {
             <Form.Group>
                 <Form.Label>Image</Form.Label>
                 <input
-                {...formProps.input}
-                value={undefined}
-                type="file"/>
-                 {this.renderError(formProps.meta)}
+                    {...formProps.input}
+                    value={undefined}
+                    type="file" />
+                {this.renderError(formProps.meta)}
             </Form.Group>
         );
     }
 
-    onSubmit =(formValues, dispatch)=>{
+    onSubmit = (formValues, dispatch) => {
         this.props.onSubmit(formValues)
         this.props.closeModal()
         dispatch(reset('formTodo'))
     }
+
     clearCloseModal = () => {
-       this.props.dispatch(reset('formTodo'))
+        this.props.dispatch(reset('formTodo'))
         this.props.closeModal()
-        
     }
-    render(){
-        return(
-           <div>
+
+    render() {
+        return (
+            <div>
                 <Modal show={this.props.show}>
                     <Modal.Header>
-                            <Modal.Title>{this.props.themeOfModal}</Modal.Title>
-                            <Button onClick={this.clearCloseModal}>X</Button>
+                        <Modal.Title>{this.props.themeOfModal}</Modal.Title>
+                        <Button onClick={this.clearCloseModal}>X</Button>
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.props.handleSubmit(this.onSubmit)} encType="multipart/form-data">
                             <Field name="title" component={this.renderInput} />
                             <Field name="description" component={this.renderTextArea} />
                             <Field name="due_date" component={this.renderDate} />
-                            <Field name="image" component={this.renderImage}/>
+                            <Field name="image" component={this.renderImage} />
                             <Modal.Footer>
                                 <button className="btn btn-primary">
                                     Save Changes
@@ -97,56 +111,52 @@ class FormTodo extends React.Component {
                         </Form>
                     </Modal.Body>
                 </Modal>
-           </div>
+            </div>
         );
     }
 }
 
 const validate = (formValues) => {
-    
     const errors = {}
-    
-    if(!formValues.title){
+
+    if (!formValues.title) {
         errors.title = 'You must enter a title'
-    }else if(formValues.title.length > 40){
+    } else if (formValues.title.length > 40) {
         errors.title = 'Must be 40 Characters or less'
     }
 
-    if(!formValues.description){
+    if (!formValues.description) {
         errors.description = 'You must enter a description'
-    }else if(formValues.description.length > 200){
+    } else if (formValues.description.length > 200) {
         errors.description = 'Must be 20 Characters or less'
     }
 
     if (!formValues.due_date) {
         errors.due_date = 'You must enter a due date'
-    }else if(formValues.due_date){
-        let dateNow = (formValues.due_date).split('-')
+    } else if (formValues.due_date) {
+        var inputdate = new Date(formValues.due_date).getTime()
         let getYear = new Date().getFullYear()
-        let getMonth = new Date().getMonth()
+        let getMonth = new Date().getMonth() + 1
         let getDay = new Date().getDate()
-        if (Number(getYear) > Number(dateNow[0])) {
-            errors.due_date = 'Year must be greather than now'
-
-        } else if (Number(getDay) > Number(dateNow[2])) {
-            errors.due_date = 'Date must be greather than now'
-        } else if (Number(getMonth) + 1 > Number(dateNow[1])) {
-            errors.due_date = 'Month must be greather than now'
+        var stringDay = `${getYear}-${getMonth}-${getDay}`
+        var beforedate = new Date(stringDay).getTime()
+        if (inputdate <= beforedate) {
+            errors.due_date = 'Date Must be Greather'
         }
     }
 
-    if(typeof formValues.image === 'object'){
-        if(formValues.image[0]){
-            console.log(formValues.image[0])
-            if(formValues.image[0].size > 5242880){
+    if (typeof formValues.image === 'object') {
+        if (formValues.image[0]) {
+            if (formValues.image[0].size > 5242880) {
                 errors.image = 'maximum file size is 5 MB'
-            }else if(formValues.image[0].type !== 'image/png' && formValues.image[0].type !== 'image/jpg' && formValues.image[0].type !== 'image/jpeg'){
+            } else if (formValues.image[0].type !== 'image/png' && formValues.image[0].type !== 'image/jpg' && formValues.image[0].type !== 'image/jpeg') {
                 errors.image = 'should upload jpg, png or jpeg'
             }
 
         }
-        
+
     }
+
     return errors
 }
 

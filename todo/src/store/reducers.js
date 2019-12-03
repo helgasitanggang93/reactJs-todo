@@ -9,7 +9,8 @@ const initialState = {
     isForm: false,
     isLogin: false,
     isRegister: false,
-    isLoginRegister: false
+    isLoginRegister: false,
+    isGoogleSignIn: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +32,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isDetail: action.payload
+            }
+        }
+        case 'IS_GOOGLE_SIGN_IN': {
+            return {
+                ...state,
+                isGoogleSignIn: action.payload
             }
         }
         case 'IS_LOADING': {

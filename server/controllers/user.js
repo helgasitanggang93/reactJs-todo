@@ -4,7 +4,7 @@ const {sign} = require('../helpers/jwt')
 
 class UserController {
     static createUserGoogle(req, res) {
-        console.log(req.body.payload)
+       
         const {email, name, token} = req.body.payload
         User.create({
             name,
@@ -18,7 +18,7 @@ class UserController {
             res.status(400).json(errors)
         })
     }
-    
+
     static create(req,res){
         const {name, email, password, role} = req.body
         User.create({

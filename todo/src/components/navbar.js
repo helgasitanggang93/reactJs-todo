@@ -16,7 +16,7 @@ class Navbar extends React.Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light justify-content-between" style={{backgroundColor: '#3c1a5b'}}>
                 <h3 className="navbar-brand" style={{color: '#fff748'}}>REACT TO DO</h3>
-        { this.props.reducer.isGoogleSignIn ? this.logOutGoogle() : <button onClick={this.logOutButt} className="btn btn-secondary">LOG OUT</button> }
+        { this.props.reducer.isGoogleSignIn ? this.logOutGoogle() : <button data-cy="logOutNoGsignIn" onClick={this.logOutButt} className="btn btn-secondary">LOG OUT</button> }
             </nav>
         );
     }
@@ -35,11 +35,11 @@ class Navbar extends React.Component {
 
     }
     logOutButt = () => {
-            localStorage.clear()
-          
-             this.props.isLoginRegister(true)
+        this.props.isLoginRegister(true)
              this.props.isLogin(true)
             this.props.isGoogleSignIn(false)
+            localStorage.clear()
+             
     }
 render(){
     return (

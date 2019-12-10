@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const UserController = require('../controllers/user')
 const TodoController = require('../controllers/todo')
+const DeleteAll = require('../testHelper/deleteAllUser')
 const Authentication = require('../middlewares/authentication')
 const GoogleCheckUser = require('../middlewares/gSignIn')
 const Authorization = require('../middlewares/authorization')
@@ -8,6 +9,8 @@ const {upload} = require('../helpers/images')
 router.post('/signup', UserController.create)
 router.post('/gsignin', GoogleCheckUser, UserController.createUserGoogle)
 router.post('/login', UserController.login)
+
+router.delete('/deleteTesting', DeleteAll.deletemany)
 
 router.post('/upload', upload.single('image'),  TodoController.images)
 router.post('/todos',  Authentication,TodoController.create)

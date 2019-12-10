@@ -23,6 +23,8 @@ class FormTodo extends React.Component {
             <Form.Group>
                 <Form.Label>Title</Form.Label>
                 <Form.Control
+                id="data-cy-title-update"
+                    data-cy-title
                     {...formProps.input}
                     type="text"
                     maxLength="40"
@@ -40,6 +42,8 @@ class FormTodo extends React.Component {
             <Form.Group>
                 <Form.Label>Description</Form.Label>
                 <Form.Control
+                id="data-cy-description-update"
+                data-cy-description
                     {...formProps.input}
                     as="textarea"
                     rows="3"
@@ -58,6 +62,8 @@ class FormTodo extends React.Component {
             <Form.Group>
                 <Form.Label>Due Date</Form.Label>
                 <Form.Control
+                id="data-cy-date-update"
+                    data-cy-date
                     {...formProps.input}
                     type="date" />
                 {this.renderError(formProps.meta)}
@@ -70,6 +76,8 @@ class FormTodo extends React.Component {
             <Form.Group>
                 <Form.Label>Image</Form.Label>
                 <input
+                id="data-cy-image-update"
+                    data-cy-image
                     {...formProps.input}
                     value={undefined}
                     type="file" />
@@ -98,13 +106,13 @@ class FormTodo extends React.Component {
                         <Button onClick={this.clearCloseModal}>X</Button>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.props.handleSubmit(this.onSubmit)} encType="multipart/form-data">
+                        <Form id="data-cy-submit-form" onSubmit={this.props.handleSubmit(this.onSubmit)} encType="multipart/form-data">
                             <Field name="title" component={this.renderInput} />
                             <Field name="description" component={this.renderTextArea} />
                             <Field name="due_date" component={this.renderDate} />
                             <Field name="image" component={this.renderImage} />
                             <Modal.Footer>
-                                <button className="btn btn-primary">
+                                <button id="data-cy-submit-update" data-cy-create="submitData" className="btn btn-primary">
                                     Save Changes
                                 </button>
                             </Modal.Footer>

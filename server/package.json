@@ -17,7 +17,8 @@
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"NODE_ENV=development nodemon app.js",
+    "test": "NODE_ENV=test nodemon app.js",
     "start": "node app.js"
   },
   "keywords": [],

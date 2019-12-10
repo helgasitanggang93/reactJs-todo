@@ -19,7 +19,7 @@ class CreateFormTodo extends React.Component {
     render(){
         return(
            <div>
-            <Button variant="primary" onClick={this.handleOpenModal}>
+            <Button data-cy-click="createTodo" variant="primary" onClick={this.handleOpenModal}>
                     Create To Do
             </Button>
             <FormTodo

@@ -10,6 +10,7 @@ const isLogin = (req, res, next) => {
         .then(data => {
             if(data){
                 req.body.userId = data._id
+                console.log(req.body)
                 next()
             }else {
                 res.status(401).json({

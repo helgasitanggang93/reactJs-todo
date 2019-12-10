@@ -24,7 +24,7 @@ class EditFormTodo extends React.Component {
     render(){
         return(
            <div>
-            <Button variant="warning" onClick={this.handleOpenModal}>
+            <Button data-cy-update variant="warning" onClick={this.handleOpenModal}>
                  Update
             </Button>
             <FormTodo

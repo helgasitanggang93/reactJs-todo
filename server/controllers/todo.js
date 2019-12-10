@@ -67,6 +67,8 @@ class ControllerTodo {
             if(obj[key] === undefined) delete obj[key]
         }
 
+        console.log(obj)
+
          Todo.findOneAndUpdate({_id: id }, obj)
          .then(() => {
             return Todo.findOne({_id: id})
@@ -81,6 +83,7 @@ class ControllerTodo {
 
     static delete(req, res){
         const {id} = req.params
+        console.log(id)
         Todo.findOneAndDelete({_id: id})
         .then(data => {
             res.status(200).json(data)     

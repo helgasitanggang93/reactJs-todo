@@ -14,6 +14,7 @@ class Login extends React.Component {
             <Form.Group>
                 <Form.Label>Email:</Form.Label>
                 <Form.Control
+                data-cy-email
                 {...formprops.input} 
                 type="text" 
                 placeholder="enter your email..." />
@@ -25,7 +26,8 @@ class Login extends React.Component {
             <Form.Group>
                 <Form.Label>Password:</Form.Label>
                 <Form.Control
-                 {...formprops.input}  
+                 {...formprops.input}
+                 data-cy-password  
                 type="password" 
                 placeholder="enter your password..." />
             </Form.Group>
@@ -58,17 +60,16 @@ class Login extends React.Component {
                                <Field name="email" component={this.renderEmail}/>
                                <Field name="password" component={this.renderPassword}/>
                                 <div className="text-center">
-                                <button className="btn btn-primary">Login</button> <br/>
+                                <button data-cy="submitLogin" className="btn btn-primary">Login</button> <br/>
                                 </div>
                             </Form>
                             <div className="text-center">
-                            {/* <div id='google-sign-in-button'/> */}
                                 <GoogleLogin
                                     clientId='1056392817226-rndeghtfhkcmirvrll080usji8fmted4.apps.googleusercontent.com' //TO BE CREATED
                                     onSuccess={this.responseGoogle}
                                     onFailure={this.responseGoogle}
                                 />
-                            <button type="button" className="btn btn-link" onClick={this.toRegister}>Don't Have Any Account yet?</button>
+                            <button data-cy-nav-toregister type="button" className="btn btn-link" onClick={this.toRegister}>Don't Have Any Account yet?</button>
                             </div>
                         </div>
                     </div>

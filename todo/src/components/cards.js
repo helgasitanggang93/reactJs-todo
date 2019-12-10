@@ -39,7 +39,7 @@ class CardTodo extends React.Component {
                         <Card.Title style={this.colorCard()}>{title}</Card.Title>
                         <Card.Text style={this.colorCard()}> Due Date: </Card.Text>
                         <Card.Text style={this.colorCard()}> {this.setDate()} </Card.Text>
-                        <Button onClick={this.openModal } style={{ backgroundColor: '#ffffff', color: this.collorStatus(), borderStyle: 'none' }}>See Detail</Button>
+                        <Button data-cy-seedetail onClick={this.openModal } style={{ backgroundColor: '#ffffff', color: this.collorStatus(), borderStyle: 'none' }}>See Detail</Button>
                     </Card.Body>
                 </Card>
                

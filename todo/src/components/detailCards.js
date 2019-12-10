@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Modal, Spinner} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import {isDetail, updateDoneTodo, fetchTodoData, deleteTodo, fetchDetailTodo, emptydDetail} from '../store/actions';
-import EditFormTodo from '../components/todoEdit';
+import EditFormTodo from './todoEdit';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { formatDate } from '../helper/dateFormating';
 
@@ -82,15 +82,15 @@ class DetailTodo extends React.Component {
                         <div className="row">
                             <div className="col">
                                 {type === 'done' ? 
-                                 <Button onClick={() => this.changeStatusDone(_id, 'urgent')}  variant="info">Undone</Button> : 
-                                 <Button onClick={() => this.changeStatusDone(_id, 'done')}  variant="info">Done</Button>}
+                                 <Button  data-cy-done onClick={() => this.changeStatusDone(_id, 'urgent')}  variant="info">Undone</Button> : 
+                                 <Button  data-cy-undone onClick={() => this.changeStatusDone(_id, 'done')}  variant="info">Done</Button>}
                             </div>
                             {this.updateComponent()}
                             <div className="col">
-                                <Button onClick={() => this.deleteTodo(_id)}  variant="danger">Delete</Button>
+                                <Button data-cy-delete onClick={() => this.deleteTodo(_id)}  variant="danger">Delete</Button>
                             </div>
                             <div  className="col">
-                                 <Button type="button"  variant="primary" onClick={this.emptyDong}>Close</Button>
+                                 <Button data-cy-closedetail type="button"  variant="primary" onClick={this.emptyDong}>Close</Button>
                            </div>
                         </div>
                     </div>

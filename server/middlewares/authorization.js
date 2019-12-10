@@ -2,8 +2,8 @@ const Todo = require('../models/todo')
 const User = require('../models/user')
 const {verify} = require('../helpers/jwt')
 const auth = (req, res, next) => {
+   console.log('masuuuk')
     if(req.headers.hasOwnProperty('token')){
-
         let payload = verify(req.headers.token, process.env.SECRET)
         const {email} = payload
         const {id} = req.params

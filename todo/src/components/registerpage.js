@@ -19,6 +19,7 @@ class Register extends React.Component {
             <Form.Group>
                 <Form.Label>Name:</Form.Label>
                 <Form.Control
+                data-cy-register-name
                 {...formprops.input} 
                 type="text" 
                 placeholder="enter your name..." />
@@ -31,6 +32,7 @@ class Register extends React.Component {
             <Form.Group>
                 <Form.Label>Email:</Form.Label>
                 <Form.Control
+                data-cy-register-email
                  {...formprops.input}  
                 type="text" 
                 placeholder="enter your email..." />
@@ -43,6 +45,7 @@ class Register extends React.Component {
             <Form.Group>
                 <Form.Label>Password:</Form.Label>
                 <Form.Control
+                data-cy-register-password
                  {...formprops.input}
                 type="password" 
                 placeholder="enter your password..." />
@@ -54,7 +57,7 @@ class Register extends React.Component {
         return (
             <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Role</Form.Label>
-            <Form.Control {...formprops.input} as="select">
+            <Form.Control data-cy-register-role {...formprops.input} as="select">
                 <option>Pick your role</option>
                 <option value="se">Software Engineer</option>
                 <option value="con">Consultant</option>
@@ -81,7 +84,7 @@ class Register extends React.Component {
                         <div className="col-lg-6 offset-lg-3" style={{border: '1px solid grey', padding: '15px'}}>
                             <h3 className="text-center">Form Register</h3>
                             {this.props.errorServer !== '' ? <Alert variant='danger'>{this.props.errorServer}</Alert> : undefined}
-                            <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                            <Form data-cy-register="submit" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                                <Field name="name" component={this.renderName}/>
                                <Field name="email" component={this.renderEmail}/>
                                 <Field name="password" component={this.renderPassword}/>
@@ -90,7 +93,7 @@ class Register extends React.Component {
                                 <button className="btn btn-primary">Submit</button>
                                 </div>
                             </Form>
-                            <button onClick={this.toLogin} className="btn btn-primary">Back</button>
+                            <button data-cy-register-back onClick={this.toLogin} className="btn btn-primary">Back</button>
                         </div>
                     </div>
                 </div>

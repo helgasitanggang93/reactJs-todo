@@ -35,6 +35,8 @@ class TodosList extends React.Component {
       sortByDueDate = () => {
         this.props.sortByDue()
       }
+
+      
     render() {
         return(
             <div className="container text-center">

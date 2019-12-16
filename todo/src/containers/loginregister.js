@@ -12,9 +12,8 @@ class LoginRegister extends React.Component {
         return (
             <div>
                 {this.props.reducer.isLoading ? this.loadingON() : null}
-                {this.props.reducer.isLogin ? <Login errorServer={this.props.reducer.errorMessage}/> : null}
+                {this.props.reducer.isLogin ? <Login className="loginpage" errorServer={this.props.reducer.errorMessage}/> : null}
                 {this.props.reducer.isRegister ? <Register  errorServer={this.props.reducer.errorMessage}/> : null}
-                
             </div>
         );
     }

@@ -80,13 +80,6 @@ export const formModalHandler = (bool) => {
     }
 }
 
-export const headerCollor = (color) => {
-    return {
-        type: 'HEADER_DETAIL_COLLOR',
-        payload: color
-    }
-}
-
 export const fetchTodoData = () => dispatch => {
     axiosTodo.defaults.headers.common["token"] = localStorage.token;
     axiosTodo.get('/todos')

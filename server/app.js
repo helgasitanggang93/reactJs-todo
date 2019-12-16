@@ -5,13 +5,13 @@ const port = process.env.PORT || 3000;
 const todoRoutes = require('./routes');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const uri = process.env.MONGODB_URI || `mongodb://localhost:27017/react-todo-${process.env.NODE_ENV}` || `mongodb://localhost:27017/react-todo-${process.env.NODE_ENV}`
+const uri = process.env.MONGODB_URI || `mongodb://localhost:27017/react-todo`
 mongoose.set('useNewUrlParser', true);
 mongoose.connect(uri, function (err) {
     if (err) {
         console.log(err);
     }else {
-        console.log(`mongodb://localhost:27017/react-todo-${process.env.NODE_ENV} successfully connected`);
+        console.log(`mongodb://localhost:27017/react-todo successfully connected`);
         
     }
 });

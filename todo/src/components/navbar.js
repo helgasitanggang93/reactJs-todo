@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class Navbar extends React.Component {
     notLogin = () => {
         return (
-            <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: '#3c1a5b'}}>
+            <nav id="navbar-nologin" className="navbar navbar-expand-lg navbar-light" style={{backgroundColor: '#3c1a5b'}}>
                 <h3 className="navbar-brand" style={{color: '#fff748'}}>REACT TO DO</h3>
             </nav>
         );

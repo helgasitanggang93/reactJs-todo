@@ -33,7 +33,7 @@ class CardTodo extends React.Component {
         const { title} = this.props.appProps
         return (
             <div>
-                <Card style={{ width: '15rem', backgroundColor: this.collorStatus()}}>
+                <Card className="Card-todo" style={{ width: '15rem', backgroundColor: this.collorStatus()}}>
                     <Card.Body>
                         <Card.Title style={this.colorCard()}> Title: </Card.Title>
                         <Card.Title style={this.colorCard()}>{title}</Card.Title>

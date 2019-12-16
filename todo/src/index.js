@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
-import reducer from './store/reducers';
-import thunk from 'redux-thunk';
+import Root from './root';
 
-const stores = createStore(reducer, applyMiddleware(thunk))
 ReactDOM.render(
-    <Provider store= {stores}>
-    <App />
-    </Provider>, 
+    <Root>
+       <App />
+    </Root>, 
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

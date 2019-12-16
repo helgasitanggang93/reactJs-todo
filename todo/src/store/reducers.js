@@ -30,7 +30,7 @@ const reducer = (state = initialState, action) => {
         }
         case 'IS_DETAIL': {
             return {
-                ...state,
+                ...state, 
                 isDetail: action.payload
             }
         }
@@ -63,12 +63,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isRegister: action.payload
-            }
-        }
-        case 'FETCH_UPDATE_DONE': {
-            return {
-                ...state,
-                detail: action.payload
             }
         }
         case 'ITEM_ERROR': {

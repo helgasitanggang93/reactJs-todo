@@ -83,7 +83,6 @@ class ControllerTodo {
 
     static delete(req, res){
         const {id} = req.params
-        console.log(id)
         Todo.findOneAndDelete({_id: id})
         .then(data => {
             res.status(200).json(data)     

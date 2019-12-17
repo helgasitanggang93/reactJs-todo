@@ -1,7 +1,7 @@
 import {mount} from 'enzyme';
 import React from 'react';
-import App from '../src/App';
-import Root from '../src/root';
+import App from '../App';
+import Root from '../root';
 
 let wrapped;
 

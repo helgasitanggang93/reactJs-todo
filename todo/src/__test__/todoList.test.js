@@ -1,11 +1,11 @@
 import {mount} from 'enzyme';
 import React from 'react';
-import TodoEdit from '../../components/todoEdit';
-import Root from '../../root';
+import TodoList from '../containers/todosList';
+import Root from '../root';
 
 
 
-describe('Form Edit testing', () => {
+describe('TodoList Containers testing', () => {
     let wrapped;
 
 beforeEach(()=> {
@@ -32,25 +32,26 @@ beforeEach(()=> {
                 image: 'http://res.cloudinary.com/dpnjbs730/image/upload/v1574652564/ryglzhwl8...'
             }
 
-           
         }
        
     }
 
     wrapped = mount(
         <Root initialState={initialState}>
-            <TodoEdit />
+            <TodoList />
         </Root>
     );
 })
 
-    it('has FormTodo Component', () => {
-    expect(wrapped.find('FormTodo').length).toEqual(1)
+    it('has CreateFormTodo Component', () => {
+    expect(wrapped.find('CreateFormTodo').length).toEqual(1)
    
     })
-    it('has Button Submit', () => {
-        expect(wrapped.find('Button').length).toEqual(1)
-       
-        })
+
+    it('has Card Todo Component', () => {
+        expect(wrapped.find('CardTodo').length).toEqual(2);
+    })
+
+    
 
 })

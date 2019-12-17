@@ -6,8 +6,8 @@ import {
     isLogin,
     isRegister,
     fetchTodoData
-} from '../../store/actions';
-import reducer from '../reducers';
+} from '../store/actions';
+import reducer from '../store/reducers';
 
 describe('action testing', () => {
     it('isDetail has correct type', ()=> {

@@ -1,11 +1,11 @@
 import {mount} from 'enzyme';
 import React from 'react';
-import LoginRegister from '../../containers/loginregister';
-import Root from '../../root';
+import LoginRegister from '../containers/loginregister';
+import Root from '../root';
 
 
 
-describe('TodoList Containers testing', () => {
+describe('LoginRegister Containers testing', () => {
     let wrapped;
 
 beforeEach(()=> {

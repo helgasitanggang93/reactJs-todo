@@ -57,7 +57,7 @@ class Login extends React.Component {
                              {this.props.errorServer !== '' ? <Alert variant='danger'>{this.props.errorServer}</Alert> : undefined}
                             <h3 className="text-center">Login Form</h3>
                             <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                               <Field name="email" component={this.renderEmail}/>
+                               <Field id="input-email-loginpage" name="email" component={this.renderEmail}/>
                                <Field name="password" component={this.renderPassword}/>
                                 <div className="text-center">
                                 <button data-cy="submitLogin" className="btn btn-primary">Login</button> <br/>

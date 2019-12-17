@@ -42,7 +42,7 @@ class DetailTodo extends React.Component {
         if(this.props.reducer.detail){
             if(this.props.reducer.detail.type === 'urgent'){
                 return <div className="col">
-                <EditFormTodo idTodo={this.props.reducer.detail._id}/>
+                <EditFormTodo id="buttonupdate-detail-todo" idTodo={this.props.reducer.detail._id}/>
              </div>
             }
         }
@@ -50,47 +50,46 @@ class DetailTodo extends React.Component {
     render(){
         const {title, description, due_date, _id, type, image} = this.props.reducer.detail
         return(
-            <div>
-            <Modal  size="md" show={this.props.reducer.isDetail} >
-
+            <div className="detail-todo" >
+            <Modal className="modal-todo-detail" size="md" show={this.props.reducer.isDetail} >
                 <Modal.Header style={{ backgroundColor: this.collorStatus(), padding: '0px' }}>
                    <h5> Detail Todo</h5>
                 </Modal.Header>
                 <Modal.Body >
                 <div className="card-body">
                     <div className="card-title text-center">
-                        <h3>
+                        <h3 id="title-detail-todo">
                         {title}
                         </h3>
                     </div>
-                    <div className="text-center">  
+                    <div id="image-detail-todo" className="text-center">  
                         {image ? <img className="card-img-top" style={{maxWidth: '300px', maxHeight: '200px'}} src={image} alt="gambar"/> : <Spinner animation="border" variant="primary" />}
                     </div>
                    <div className="card-text text-center"> 
                         <div>
                        <span style={{fontSize: 'smaller'}}> Due Date:</span>
-                        <p> {this.setDate(due_date)} </p>
+                        <p id="duedate-detail-todo"> {this.setDate(due_date)} </p>
                         </div>            
                     </div> 
                     <div className="card-text text-center">
                     <span style={{fontSize: 'smaller'}}>Desciption:</span> 
-                    <p>{description}</p>
+                    <p id="description-detail-todo">{description}</p>
                     </div>
                 </div>
                 <div className="card-footer">
                     <div style={{padding: '0px', margin: '0px'}} className="container">
                         <div className="row">
-                            <div className="col">
+                            <div id="buttondone-detail-todo" className="col">
                                 {type === 'done' ? 
-                                 <Button  data-cy-done onClick={() => this.changeStatusDone(_id, 'urgent')}  variant="info">Undone</Button> : 
-                                 <Button  data-cy-undone onClick={() => this.changeStatusDone(_id, 'done')}  variant="info">Done</Button>}
+                                 <Button id="buttonundone-detail-todo"  data-cy-done onClick={() => this.changeStatusDone(_id, 'urgent')}  variant="info">Undone</Button> : 
+                                 <Button   data-cy-undone onClick={() => this.changeStatusDone(_id, 'done')}  variant="info">Done</Button>}
                             </div>
                             {this.updateComponent()}
-                            <div className="col">
-                                <Button data-cy-delete onClick={() => this.deleteTodo(_id)}  variant="danger">Delete</Button>
+                            <div id="buttondelete-detail-todo" className="col">
+                                <Button  data-cy-delete onClick={() => this.deleteTodo(_id)}  variant="danger">Delete</Button>
                             </div>
                             <div  className="col">
-                                 <Button data-cy-closedetail type="button"  variant="primary" onClick={this.emptyDong}>Close</Button>
+                                 <Button id="buttonclose-detail-todo" data-cy-closedetail type="button"  variant="primary" onClick={this.emptyDong}>Close</Button>
                            </div>
                         </div>
                     </div>

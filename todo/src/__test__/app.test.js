@@ -1,6 +1,6 @@
 import { mount } from "enzyme";
 import React from "react";
-import App from "../App";
+import App from "../app";
 import Root from "../root";
 
 let wrapped;

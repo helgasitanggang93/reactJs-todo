@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "../components/loginpage";
-import Register from "../components/registerpage";
+import Login from "../components/loginPage";
+import Register from "../components/registerPage";
 import LoadingPage from "../components/loadingPage";
 import { connect } from "react-redux";
 import { isLogin, isRegister } from "../store/actions";

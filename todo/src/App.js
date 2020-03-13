@@ -3,7 +3,7 @@ import Navbar from "./components/navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 import TodoList from "./containers/todosList";
-import LoginRegister from "./containers/loginregister";
+import LoginRegister from "./containers/loginRegister";
 import { isLoginRegister, isLogin, fetchTodoData } from "./store/actions";
 
 class App extends React.Component {

@@ -1,6 +1,6 @@
 import { mount } from "enzyme";
 import React from "react";
-import LoginRegister from "../containers/loginregister";
+import LoginRegister from "../containers/loginRegister";
 import Root from "../root";
 
 describe("LoginRegister Containers testing", () => {

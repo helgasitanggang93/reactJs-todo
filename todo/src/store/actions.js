@@ -1,4 +1,4 @@
-import axiosTodo from "../apis/api_todo";
+import axiosTodo from "../apis/apiTodo";
 import Swal from "sweetalert2";
 
 export const sortByDue = () => (dispatch, getState) => {

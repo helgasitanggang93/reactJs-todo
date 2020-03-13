@@ -1,0 +1,10 @@
+export const FETCH_TODO_DATA = 'FETCH_TODO_DATA';
+export const IS_DETAIL = 'IS_DETAIL';
+export const IS_GOOGLE_SIGN_IN = 'IS_GOOGLE_SIGN_IN';
+export const IS_LOADING = 'IS_LOADING';
+export const IS_LOGIN_REGISTER = 'IS_LOGIN_REGISTER';
+export const IS_LOGIN = 'IS_LOGIN';
+export const IS_REGISTER = 'IS_REGISTER';
+export const FORM_MODAL_HANDLER = 'FORM_MODAL_HANDLER';
+export const ITEM_ERROR = 'ITEM_ERROR';
+export const FETCH_DETAIL_TODO = 'FETCH_DETAIL_TODO';

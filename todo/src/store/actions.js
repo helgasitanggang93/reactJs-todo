@@ -1,6 +1,16 @@
 import axiosTodo from "../apis/apiTodo";
 import Swal from "sweetalert2";
-
+import {
+    FETCH_TODO_DATA, 
+    IS_DETAIL, 
+    IS_GOOGLE_SIGN_IN,
+    IS_LOADING, 
+    IS_LOGIN_REGISTER, 
+    IS_LOGIN, 
+    IS_REGISTER, 
+    FORM_MODAL_HANDLER, 
+    ITEM_ERROR, 
+    FETCH_DETAIL_TODO} from './actionsType';
 export const sortByDue = () => (dispatch, getState) => {
   let sorted = getState().reducer.todos.sort((a, b) => {
     let firstDate = new Date(a.due_date).getTime();
@@ -10,7 +20,7 @@ export const sortByDue = () => (dispatch, getState) => {
   });
 
   dispatch({
-    type: "FETCH_TODO_DATA",
+    type: FETCH_TODO_DATA,
     payload: sorted
   });
 };
@@ -24,55 +34,55 @@ export const sortByDueDesc = () => (dispatch, getState) => {
   });
 
   dispatch({
-    type: "FETCH_TODO_DATA",
+    type: FETCH_TODO_DATA,
     payload: sorted
   });
 };
 
 export const isDetail = bool => {
   return {
-    type: "IS_DETAIL",
+    type: IS_DETAIL,
     payload: bool
   };
 };
 
 export const isGoogleSignIn = bool => {
   return {
-    type: "IS_GOOGLE_SIGN_IN",
+    type: IS_GOOGLE_SIGN_IN,
     payload: bool
   };
 };
 
 export const shwoLoading = () => {
   return {
-    type: "IS_LOADING"
+    type: IS_LOADING
   };
 };
 
 export const isLoginRegister = bool => {
   return {
-    type: "IS_LOGIN_REGISTER",
+    type: IS_LOGIN_REGISTER,
     payload: bool
   };
 };
 
 export const isLogin = bool => {
   return {
-    type: "IS_LOGIN",
+    type: IS_LOGIN,
     payload: bool
   };
 };
 
 export const isRegister = bool => {
   return {
-    type: "IS_REGISTER",
+    type: IS_REGISTER,
     payload: bool
   };
 };
 
 export const formModalHandler = bool => {
   return {
-    type: "FORM_MODAL_HANDLER",
+    type: FORM_MODAL_HANDLER,
     payload: bool
   };
 };
@@ -83,18 +93,18 @@ export const fetchTodoData = () => dispatch => {
     .get("/todos")
     .then(({ data }) => {
       dispatch({
-        type: "IS_LOADING",
+        type: IS_LOADING,
         payload: true
       });
 
       dispatch({
-        type: "FETCH_TODO_DATA",
+        type: FETCH_TODO_DATA,
         payload: data
       });
     })
     .catch(err => {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: err
       });
     });
@@ -102,7 +112,7 @@ export const fetchTodoData = () => dispatch => {
 
 export const updateDoneTodo = (id, status) => (dispatch, getState) => {
   dispatch({
-    type: "IS_LOADING"
+    type: IS_LOADING
   });
   let newArr = getState().reducer.todos.filter(element => {
     return element._id !== id;
@@ -114,18 +124,18 @@ export const updateDoneTodo = (id, status) => (dispatch, getState) => {
     })
     .then(({ data }) => {
       dispatch({
-        type: "FETCH_TODO_DATA",
+        type: FETCH_TODO_DATA,
         payload: [data, ...newArr]
       });
 
       dispatch({
-        type: "FETCH_DETAIL_TODO",
+        type: FETCH_DETAIL_TODO,
         payload: data
       });
     })
     .catch(err => {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: err
       });
     });
@@ -137,13 +147,13 @@ export const fetchDetailTodo = id => dispatch => {
     .get(`/todos/${id}`)
     .then(({ data }) => {
       dispatch({
-        type: "FETCH_DETAIL_TODO",
+        type: FETCH_DETAIL_TODO,
         payload: data
       });
     })
     .catch(err => {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: err
       });
     });
@@ -154,7 +164,7 @@ export const createTodo = values => async dispatch => {
     const { title, description, due_date, image } = values;
     axiosTodo.defaults.headers.common["token"] = localStorage.token;
     if (!image || image.length === 0) {
-      dispatch({ type: "IS_LOADING" });
+      dispatch({ type: IS_LOADING });
       await axiosTodo.post(`/todos`, {
         title: title,
         description: description,
@@ -164,7 +174,7 @@ export const createTodo = values => async dispatch => {
           "https://res.cloudinary.com/dpnjbs730/image/upload/v1574910240/no_image_yet_fmxurx.jpg"
       });
     } else {
-      dispatch({ type: "IS_LOADING" });
+      dispatch({ type: IS_LOADING });
       let formdata = new FormData();
       formdata.append("image", image[0]);
       let imageLink = await axiosTodo.post("/upload", formdata);
@@ -179,12 +189,12 @@ export const createTodo = values => async dispatch => {
 
     let allData = await axiosTodo.get("/todos");
     dispatch({
-      type: "FETCH_TODO_DATA",
+      type: FETCH_TODO_DATA,
       payload: allData.data
     });
   } catch (error) {
     dispatch({
-      type: "ITEM_ERROR",
+      type: ITEM_ERROR,
       payload: error
     });
   }
@@ -197,7 +207,7 @@ export const updateTodo = (id, values) => async (dispatch, getState) => {
   });
   if (typeof values.image === "object") {
     try {
-      dispatch({ type: "IS_LOADING" });
+      dispatch({ type: IS_LOADING });
       let formdata = new FormData();
       formdata.append("image", values.image[0]);
       let imageLink = await axiosTodo.post("/upload", formdata);
@@ -208,30 +218,30 @@ export const updateTodo = (id, values) => async (dispatch, getState) => {
         image: imageLink.data.link
       });
       dispatch({
-        type: "FETCH_TODO_DATA",
+        type: FETCH_TODO_DATA,
         payload: [data, ...newArr]
       });
     } catch (error) {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: error
       });
     }
   } else if (typeof values.image === "string") {
     try {
-      dispatch({ type: "IS_LOADING" });
+      dispatch({ type: IS_LOADING });
       let { data } = await axiosTodo.patch(`/todos/${id}`, {
         title: values.title,
         description: values.description,
         due_date: values.due_date
       });
       dispatch({
-        type: "FETCH_TODO_DATA",
+        type: FETCH_TODO_DATA,
         payload: [data, ...newArr]
       });
     } catch (error) {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: error
       });
     }
@@ -240,7 +250,7 @@ export const updateTodo = (id, values) => async (dispatch, getState) => {
 
 export const deleteTodo = id => (dispatch, getState) => {
   dispatch({
-    type: "IS_LOADING"
+    type: IS_LOADING
   });
   axiosTodo.defaults.headers.common["token"] = localStorage.token;
   let newArr = getState().reducer.todos.filter(element => element._id !== id);
@@ -248,13 +258,13 @@ export const deleteTodo = id => (dispatch, getState) => {
     .delete(`/todos/${id}`)
     .then(() => {
       dispatch({
-        type: "FETCH_TODO_DATA",
+        type: FETCH_TODO_DATA,
         payload: newArr
       });
     })
     .catch(err => {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: err
       });
     });
@@ -262,7 +272,7 @@ export const deleteTodo = id => (dispatch, getState) => {
 
 export const loginSubmit = values => dispatch => {
   dispatch({
-    type: "IS_LOADING"
+    type: IS_LOADING
   });
   axiosTodo
     .post("/login", {
@@ -272,17 +282,17 @@ export const loginSubmit = values => dispatch => {
     .then(({ data }) => {
       localStorage.setItem("token", data.token);
       dispatch({
-        type: "IS_LOGIN_REGISTER",
+        type: IS_LOGIN_REGISTER,
         payload: false
       });
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: ""
       });
     })
     .catch(({ response }) => {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: response.data.message
       });
     });
@@ -298,17 +308,17 @@ export const registerSubmit = values => dispatch => {
     })
     .then(() => {
       dispatch({
-        type: "IS_LOGIN",
+        type: IS_LOGIN,
         payload: true
       });
 
       dispatch({
-        type: "IS_REGISTER",
+        type: IS_REGISTER,
         payload: false
       });
 
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: ""
       });
 
@@ -316,7 +326,7 @@ export const registerSubmit = values => dispatch => {
     })
     .catch(({ response }) => {
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: response.data
       });
     });
@@ -324,28 +334,28 @@ export const registerSubmit = values => dispatch => {
 
 export const emptyError = () => dispatch => {
   dispatch({
-    type: "ITEM_ERROR",
+    type: ITEM_ERROR,
     payload: ""
   });
 };
 
 export const emptydDetail = () => dispatch => {
   dispatch({
-    type: "FETCH_DETAIL_TODO",
+    type: FETCH_DETAIL_TODO,
     payload: {}
   });
 };
 
 export const emptyTodos = () => dispatch => {
   dispatch({
-    type: "FETCH_TODO_DATA",
+    type: FETCH_TODO_DATA,
     payload: []
   });
 };
 
 export const ggSignIn = token => dispatch => {
   dispatch({
-    type: "IS_LOADING"
+    type: IS_LOADING
   });
   axiosTodo({
     url: "/gsignin",
@@ -358,23 +368,23 @@ export const ggSignIn = token => dispatch => {
       let token = data.token;
       localStorage.setItem("token", token);
       dispatch({
-        type: "IS_GOOGLE_SIGN_IN",
+        type: IS_GOOGLE_SIGN_IN,
         payload: true
       });
       dispatch({
-        type: "IS_LOGIN_REGISTER",
+        type: IS_LOGIN_REGISTER,
         payload: false
       });
 
       dispatch({
-        type: "ITEM_ERROR",
+        type: ITEM_ERROR,
         payload: ""
       });
     })
     .catch(error => {
       if (error.response.status === 400) {
         dispatch({
-          type: "ITEM_ERROR",
+          type: ITEM_ERROR,
           payload: "please login"
         });
       }

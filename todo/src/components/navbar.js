@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {textNavColor, navBaseColor} from './styles/componentsStyle';
 
 class Navbar extends React.Component {
-  notLogin = () => {
+  displayLoginButton = () => {
     return (
       <nav
         id="navbar-nologin"
@@ -73,7 +73,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <div>
-        {this.props.reducer.isLoginRegister ? this.notLogin() : this.isLogin()}
+        {this.props.reducer.isLoginRegister ? this.displayLoginButton() : this.isLogin()}
       </div>
     );
   }

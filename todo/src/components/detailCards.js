@@ -13,13 +13,13 @@ import EditFormTodo from "./todoEdit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { formatDate } from "../helper/dateFormating";
 import {
-    headerDetailCardStyle, 
-    imageDetailCardStyle, 
-    contentTextStyle, 
-    layoutDefaultSetting} from './styles/componentsStyle';
+  headerDetailCardStyle,
+  imageDetailCardStyle,
+  contentTextStyle,
+  layoutDefaultSetting
+} from "./styles/componentsStyle";
 
 class DetailTodo extends React.Component {
-    
   changeStatusDone = (id, statusDone) => {
     this.props.updateDoneTodo(id, statusDone);
   };
@@ -33,7 +33,7 @@ class DetailTodo extends React.Component {
     this.props.emptydDetail();
     this.props.isDetail(false);
   };
-    
+
   updateComponent = () => {
     if (this.props.reducer.detail) {
       if (this.props.reducer.detail.type === "urgent") {
@@ -65,9 +65,7 @@ class DetailTodo extends React.Component {
           size="md"
           show={this.props.reducer.isDetail}
         >
-          <Modal.Header
-            style={headerDetailCardStyle(type)}
-          >
+          <Modal.Header style={headerDetailCardStyle(type)}>
             <h5> Detail Todo</h5>
           </Modal.Header>
           <Modal.Body>
@@ -99,10 +97,7 @@ class DetailTodo extends React.Component {
               </div>
             </div>
             <div className="card-footer">
-              <div
-                style={layoutDefaultSetting}
-                className="container"
-              >
+              <div style={layoutDefaultSetting} className="container">
                 <div className="row">
                   <div id="buttondone-detail-todo" className="col">
                     {type === "done" ? (
@@ -160,10 +155,10 @@ const mampToStore = state => {
 };
 
 export default connect(mampToStore, {
-isDetail,
-updateDoneTodo,
-fetchTodoData,
-deleteTodo,
-fetchDetailTodo,
-emptydDetail
+  isDetail,
+  updateDoneTodo,
+  fetchTodoData,
+  deleteTodo,
+  fetchDetailTodo,
+  emptydDetail
 })(DetailTodo);

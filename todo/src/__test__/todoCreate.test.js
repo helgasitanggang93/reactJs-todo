@@ -1,56 +1,54 @@
-import {mount} from 'enzyme';
-import React from 'react';
-import TodoCreate from '../components/todoCreate';
-import Root from '../root';
+import { mount } from "enzyme";
+import React from "react";
+import TodoCreate from "../components/todoCreate";
+import Root from "../root";
 
+describe("Form Create testing", () => {
+  let wrapped;
 
-
-describe('Form Create testing', () => {
-    let wrapped;
-
-beforeEach(()=> {
+  beforeEach(() => {
     const initialState = {
-        reducer: {
-            todos: [{
-                _id:'5ddb49cd2476fb0ca3e8b541',
-                title: 'todo test',
-                description: 'todo test with jest',
-                due_date: '2019-11-27',
-                image: 'http://res.cloudinary.com/dpnjbs730/image/upload/v1574652564/ryglzhwl8...'
-            },{
-                _id:'5ddb49cd2476fb0ca3e8b541',
-                title: 'todo development',
-                description: 'todo react',
-                due_date: '2019-11-27',
-                image: 'http://res.cloudinary.com/dpnjbs730/image/upload/v1574652564/ryglzhwl8...'
-            }],
-            detail: {
-                _id:'5ddb49cd2476fb0ca3e8b541',
-                title: 'todo test',
-                description: 'todo test with jest',
-                due_date: '2019-11-27',
-                image: 'http://res.cloudinary.com/dpnjbs730/image/upload/v1574652564/ryglzhwl8...'
-            }
-
-           
+      reducer: {
+        todos: [
+          {
+            _id: "5ddb49cd2476fb0ca3e8b541",
+            title: "todo test",
+            description: "todo test with jest",
+            due_date: "2019-11-27",
+            image:
+              "http://res.cloudinary.com/dpnjbs730/image/upload/v1574652564/ryglzhwl8..."
+          },
+          {
+            _id: "5ddb49cd2476fb0ca3e8b541",
+            title: "todo development",
+            description: "todo react",
+            due_date: "2019-11-27",
+            image:
+              "http://res.cloudinary.com/dpnjbs730/image/upload/v1574652564/ryglzhwl8..."
+          }
+        ],
+        detail: {
+          _id: "5ddb49cd2476fb0ca3e8b541",
+          title: "todo test",
+          description: "todo test with jest",
+          due_date: "2019-11-27",
+          image:
+            "http://res.cloudinary.com/dpnjbs730/image/upload/v1574652564/ryglzhwl8..."
         }
-       
-    }
+      }
+    };
 
     wrapped = mount(
-        <Root initialState={initialState}>
-            <TodoCreate />
-        </Root>
+      <Root initialState={initialState}>
+        <TodoCreate />
+      </Root>
     );
-})
+  });
 
-    it('has FormTodo Component', () => {
-    expect(wrapped.find('FormTodo').length).toEqual(1)
-   
-    })
-    it('has Button Submit', () => {
-        expect(wrapped.find('Button').length).toEqual(1)
-       
-        })
-
-})
+  it("has FormTodo Component", () => {
+    expect(wrapped.find("FormTodo").length).toEqual(1);
+  });
+  it("has Button Submit", () => {
+    expect(wrapped.find("Button").length).toEqual(1);
+  });
+});

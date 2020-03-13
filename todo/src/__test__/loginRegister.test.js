@@ -1,35 +1,30 @@
-import {mount} from 'enzyme';
-import React from 'react';
-import LoginRegister from '../containers/loginregister';
-import Root from '../root';
+import { mount } from "enzyme";
+import React from "react";
+import LoginRegister from "../containers/loginregister";
+import Root from "../root";
 
+describe("LoginRegister Containers testing", () => {
+  let wrapped;
 
-
-describe('LoginRegister Containers testing', () => {
-    let wrapped;
-
-beforeEach(()=> {
+  beforeEach(() => {
     const initialState = {
-        reducer: {
-            isLogin: true,
-            isRegister: true
-        }
-       
-    }
+      reducer: {
+        isLogin: true,
+        isRegister: true
+      }
+    };
 
     wrapped = mount(
-        <Root initialState={initialState}>
-            <LoginRegister />
-        </Root>
+      <Root initialState={initialState}>
+        <LoginRegister />
+      </Root>
     );
-})
+  });
 
-    it('has Login Component', () => {
-    expect(wrapped.find('Login').length).toEqual(1)
-   
-    })
-    it('has Register Component', () => {
-        expect(wrapped.find('Register').length).toEqual(1);
-    })
-
-})
+  it("has Login Component", () => {
+    expect(wrapped.find("Login").length).toEqual(1);
+  });
+  it("has Register Component", () => {
+    expect(wrapped.find("Register").length).toEqual(1);
+  });
+});

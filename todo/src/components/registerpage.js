@@ -9,6 +9,7 @@ import {
   emptyError
 } from "../store/actions";
 import { Field, reduxForm, reset } from "redux-form";
+import {centerPosition, loginRegisterFormPositionStyle} from './styles/componentsStyle';
 
 class Register extends React.Component {
   renderError({ error, touched }) {
@@ -91,18 +92,13 @@ class Register extends React.Component {
   render() {
     return (
       <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
+        style={centerPosition}
       >
         <div className="container">
           <div className="row">
             <div
               className="col-lg-6 offset-lg-3"
-              style={{ border: "1px solid grey", padding: "15px" }}
+              style={loginRegisterFormPositionStyle}
             >
               <h3 className="text-center">Form Register</h3>
               {this.props.errorServer !== "" ? (

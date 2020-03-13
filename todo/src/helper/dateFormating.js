@@ -22,14 +22,16 @@ export const formatDate = values => {
     "November",
     "Desember"
   ];
-
-  let formatDate = new Date(values);
-  let setDay = formatDate.getDay();
-  let setMonth = formatDate.getMonth();
-  let setDate = formatDate.getDate();
-  let setYear = formatDate.getFullYear();
-
-  return `${dayList[setDay].slice(0, 3)}, ${setDate} ${
-    monthList[setMonth]
-  } ${setYear}`;
+  if(values){
+    let formatDate = new Date(values);
+    let setDay = formatDate.getDay();
+    let setMonth = formatDate.getMonth();
+    let setDate = formatDate.getDate();
+    let setYear = formatDate.getFullYear();
+  
+    return `${dayList[setDay].slice(0, 3)}, ${setDate} ${
+      monthList[setMonth]
+    } ${setYear}`;
+  }
+  
 };

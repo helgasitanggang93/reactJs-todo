@@ -12,6 +12,7 @@ import {
 } from "../store/actions";
 import { Dropdown, DropdownButton, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {paddingForList, marginTopBetweenCreate, spacingBetweenSortButton} from '../components/styles/componentsStyle';
 
 class TodosList extends React.Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ class TodosList extends React.Component {
   listTodoRender() {
     return this.props.reducer.todos.map((element, index) => {
       return (
-        <div className="col-3" style={{ padding: "5px" }} key={index}>
+        <div className="col-3" style={paddingForList} key={index}>
           {this.props.reducer.isLoading ? (
             <Spinner animation="grow" variant="primary" size="md" />
           ) : (
@@ -52,12 +53,12 @@ class TodosList extends React.Component {
     return (
       <div className="container text-center">
         <div className="row">
-          <div className="col" style={{ marginTop: "5px" }}>
+          <div className="col" style={marginTopBetweenCreate}>
             <CreateFormTodo />
           </div>
         </div>
         <div className="row">
-          <div style={{ marginLeft: "15px", marginBottom: "5px" }}>
+          <div style={spacingBetweenSortButton}>
             {this.props.reducer.todos.length !== 0 ? (
               <DropdownButton id="dropdown-basic-button" title="Option">
                 <Dropdown.Item onClick={this.sortByDueDate}>

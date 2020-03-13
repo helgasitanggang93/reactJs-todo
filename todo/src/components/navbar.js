@@ -9,6 +9,7 @@ import {
 } from "../store/actions";
 import { GoogleLogout } from "react-google-login";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {textNavColor, navBaseColor} from './styles/componentsStyle';
 
 class Navbar extends React.Component {
   notLogin = () => {
@@ -16,9 +17,9 @@ class Navbar extends React.Component {
       <nav
         id="navbar-nologin"
         className="navbar navbar-expand-lg navbar-light"
-        style={{ backgroundColor: "#3c1a5b" }}
+        style={navBaseColor}
       >
-        <h3 className="navbar-brand" style={{ color: "#fff748" }}>
+        <h3 className="navbar-brand" style={textNavColor}>
           REACT TO DO
         </h3>
       </nav>
@@ -29,9 +30,9 @@ class Navbar extends React.Component {
     return (
       <nav
         className="navbar navbar-expand-lg navbar-light justify-content-between"
-        style={{ backgroundColor: "#3c1a5b" }}
+        style={navBaseColor}
       >
-        <h3 className="navbar-brand" style={{ color: "#fff748" }}>
+        <h3 className="navbar-brand" style={textNavColor}>
           REACT TO DO
         </h3>
         {this.props.reducer.isGoogleSignIn ? (

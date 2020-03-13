@@ -12,22 +12,14 @@ import {
 import EditFormTodo from "./todoEdit";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { formatDate } from "../helper/dateFormating";
+import {
+    headerDetailCardStyle, 
+    imageDetailCardStyle, 
+    contentTextStyle, 
+    layoutDefaultSetting} from './styles/componentsStyle';
 
 class DetailTodo extends React.Component {
-  componentDidMount() {
-    this.collorStatus();
-  }
-
-  collorStatus = () => {
-    if (this.props.reducer.detail.type === "urgent") {
-      return "#ef5350";
-    } else if (this.props.reducer.detail.type === "noUrgent") {
-      return "#ffe67c";
-    } else if (this.props.reducer.detail.type === "done") {
-      return "#8aaae5";
-    }
-  };
-
+    
   changeStatusDone = (id, statusDone) => {
     this.props.updateDoneTodo(id, statusDone);
   };
@@ -78,7 +70,7 @@ class DetailTodo extends React.Component {
           show={this.props.reducer.isDetail}
         >
           <Modal.Header
-            style={{ backgroundColor: this.collorStatus(), padding: "0px" }}
+            style={headerDetailCardStyle(type)}
           >
             <h5> Detail Todo</h5>
           </Modal.Header>
@@ -91,7 +83,7 @@ class DetailTodo extends React.Component {
                 {image ? (
                   <img
                     className="card-img-top"
-                    style={{ maxWidth: "300px", maxHeight: "200px" }}
+                    style={imageDetailCardStyle}
                     src={image}
                     alt="gambar"
                   />
@@ -101,18 +93,18 @@ class DetailTodo extends React.Component {
               </div>
               <div className="card-text text-center">
                 <div>
-                  <span style={{ fontSize: "smaller" }}> Due Date:</span>
-                  <p id="duedate-detail-todo"> {this.setDate(due_date)} </p>
+                  <span style={contentTextStyle}> Due Date:</span>
+                  <p id="duedate-detail-todo"> {formatDate(due_date)} </p>
                 </div>
               </div>
               <div className="card-text text-center">
-                <span style={{ fontSize: "smaller" }}>Desciption:</span>
+                <span style={contentTextStyle}>Desciption:</span>
                 <p id="description-detail-todo">{description}</p>
               </div>
             </div>
             <div className="card-footer">
               <div
-                style={{ padding: "0px", margin: "0px" }}
+                style={layoutDefaultSetting}
                 className="container"
               >
                 <div className="row">

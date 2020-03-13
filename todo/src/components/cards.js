@@ -3,54 +3,33 @@ import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import { fetchDetailTodo, isDetail } from "../store/actions";
 import { formatDate } from "../helper/dateFormating";
+import {contentTextColor, buttonDetailsStyle , cardTodoStyle} from './styles/componentsStyle';
 
 class CardTodo extends React.Component {
-  collorStatus = () => {
-    const { status } = this.props.appProps;
-    if (status === "urgent") {
-      return "#ef5350";
-    } else if (status === "done") {
-      return "#8aaae5";
-    }
-  };
-
+    
   openModal = () => {
-    this.props.fetchDetailTodo(this.props.appProps.id);
+    const {id} = this.props.appProps
+    this.props.fetchDetailTodo(id);
     this.props.isDetail(true);
-  };
-
-  setDate = () => {
-    const { due_date } = this.props.appProps;
-    return formatDate(due_date);
-  };
-  
-  colorCard = () => {
-    return {
-      color: "#ffffff"
-    };
   };
   
   render() {
-    const { title } = this.props.appProps;
+    const { title, status, due_date } = this.props.appProps;
     return (
       <div>
         <Card
           className="card-todo"
-          style={{ width: "15rem", backgroundColor: this.collorStatus() }}
+          style={cardTodoStyle(status)}
         >
           <Card.Body>
-            <Card.Title style={this.colorCard()}> Title: </Card.Title>
-            <Card.Title style={this.colorCard()}>{title}</Card.Title>
-            <Card.Text style={this.colorCard()}> Due Date: </Card.Text>
-            <Card.Text style={this.colorCard()}> {this.setDate()} </Card.Text>
+            <Card.Title style={contentTextColor}> Title: </Card.Title>
+            <Card.Title style={contentTextColor}>{title}</Card.Title>
+            <Card.Text style={contentTextColor}> Due Date: </Card.Text>
+            <Card.Text style={contentTextColor}> {formatDate(due_date)} </Card.Text>
             <Button
               data-cy-seedetail
               onClick={this.openModal}
-              style={{
-                backgroundColor: "#ffffff",
-                color: this.collorStatus(),
-                borderStyle: "none"
-              }}
+              style={buttonDetailsStyle(status)}
             >
               See Detail
             </Button>

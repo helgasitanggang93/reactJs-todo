@@ -12,6 +12,7 @@ import {
 } from "../store/actions";
 import { Form, Alert } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
+import {centerPosition, loginRegisterFormPositionStyle} from './styles/componentsStyle';
 
 class Login extends React.Component {
   renderEmail = formprops => {
@@ -60,18 +61,13 @@ class Login extends React.Component {
   render() {
     return (
       <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
+        style={centerPosition}
       >
         <div className="container">
           <div className="row">
             <div
               className="col-lg-6 offset-lg-3"
-              style={{ border: "1px solid grey", padding: "15px" }}
+              style={loginRegisterFormPositionStyle}
             >
               {this.props.errorServer !== "" ? (
                 <Alert variant="danger">{this.props.errorServer}</Alert>

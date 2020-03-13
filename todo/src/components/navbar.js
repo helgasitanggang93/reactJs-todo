@@ -40,7 +40,7 @@ class Navbar extends React.Component {
         ) : (
           <button
             data-cy="logOutNoGsignIn"
-            onClick={this.logOutButt}
+            onClick={this.onLogOutPressed}
             className="btn btn-secondary"
           >
             LOG OUT
@@ -58,12 +58,12 @@ class Navbar extends React.Component {
             Log Out
           </button>
         )}
-        onLogoutSuccess={this.logOutButt}
+        onLogoutSuccess={this.onLogOutPressed}
       />
     );
   };
 
-  logOutButt = () => {
+  onLogOutPressed = () => {
     this.props.isLoginRegister(true);
     this.props.isLogin(true);
     this.props.isGoogleSignIn(false);

@@ -52,8 +52,8 @@ const mapStoreToProps = state => {
 };
 
 export default connect(mapStoreToProps, {
-  updateTodo: updateTodo,
-  isDetail: isDetail,
-  formModalHandler: formModalHandler,
-  fetchDetailTodo: fetchDetailTodo
+  updateTodo,
+  isDetail,
+  formModalHandler,
+  fetchDetailTodo
 })(EditFormTodo);

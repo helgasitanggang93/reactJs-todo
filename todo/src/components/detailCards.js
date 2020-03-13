@@ -29,15 +29,11 @@ class DetailTodo extends React.Component {
     this.props.isDetail(false);
   };
 
-  emptyDong = () => {
+  onEmptyDetail = () => {
     this.props.emptydDetail();
     this.props.isDetail(false);
   };
-
-  setDate = due_date => {
-    if (due_date) return formatDate(due_date);
-  };
-  
+    
   updateComponent = () => {
     if (this.props.reducer.detail) {
       if (this.props.reducer.detail.type === "urgent") {
@@ -144,7 +140,7 @@ class DetailTodo extends React.Component {
                       data-cy-closedetail
                       type="button"
                       variant="primary"
-                      onClick={this.emptyDong}
+                      onClick={this.onEmptyDetail}
                     >
                       Close
                     </Button>
@@ -164,10 +160,10 @@ const mampToStore = state => {
 };
 
 export default connect(mampToStore, {
-  isDetail: isDetail,
-  updateDoneTodo: updateDoneTodo,
-  fetchTodoData: fetchTodoData,
-  deleteTodo: deleteTodo,
-  fetchDetailTodo: fetchDetailTodo,
-  emptydDetail: emptydDetail
+isDetail,
+updateDoneTodo,
+fetchTodoData,
+deleteTodo,
+fetchDetailTodo,
+emptydDetail
 })(DetailTodo);

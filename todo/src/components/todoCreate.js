@@ -45,7 +45,7 @@ const mapStoreToProps = state => {
 };
 
 export default connect(mapStoreToProps, {
-  createTodo: createTodo,
-  formModalHandler: formModalHandler,
+  createTodo,
+  formModalHandler,
   isDetail
 })(CreateFormTodo);

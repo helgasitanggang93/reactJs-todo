@@ -31,19 +31,14 @@ class TodosList extends React.Component {
   }
 
   listTodoRender() {
-    return this.props.reducer.todos.map((element, index) => {
+    return this.props.reducer.todos.map((element) => {
       return (
-        <div className="col-3" style={paddingForList} key={index}>
+        <div className="col-3" style={paddingForList} key={element._id}>
           {this.props.reducer.isLoading ? (
             <Spinner animation="grow" variant="primary" size="md" />
           ) : (
             <CardTodo
-              id={element._id}
-              due_date={element.due_date}
-              title={element.title}
-              status={element.type}
-              image={element.image}
-            />
+            item={element} />
           )}
         </div>
       );

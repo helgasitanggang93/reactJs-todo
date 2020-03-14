@@ -13,16 +13,16 @@ import {label} from './contentsVariable/labelsVariable';
 
 class CardTodo extends React.Component {
   openModal = () => {
-    const { id } = this.props.appProps;
-    this.props.fetchDetailTodo(id);
+    const { _id } = this.props.appProps.item;
+    this.props.fetchDetailTodo(_id);
     this.props.isDetail(true);
   };
 
   render() {
-    const { title, status, due_date } = this.props.appProps;
+    const { title, type, due_date } = this.props.appProps.item;
     return (
       <div>
-        <Card className="card-todo" style={cardTodoStyle(status)}>
+        <Card className="card-todo" style={cardTodoStyle(type)}>
           <Card.Body>
             <Card.Title style={contentTextColor}> {label.title} </Card.Title>
             <Card.Title style={contentTextColor}>{title}</Card.Title>
@@ -34,7 +34,7 @@ class CardTodo extends React.Component {
             <Button
               data-cy-seedetail
               onClick={this.openModal}
-              style={buttonDetailsStyle(status)}
+              style={buttonDetailsStyle(type)}
             >
               {button.seeDetail}
             </Button>

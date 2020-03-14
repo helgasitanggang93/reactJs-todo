@@ -8,6 +8,8 @@ import {
   buttonDetailsStyle,
   cardTodoStyle
 } from "./styles/componentsStyle";
+import {button} from './contentsVariable/buttonsVariable';
+import {label} from './contentsVariable/labelsVariable';
 
 class CardTodo extends React.Component {
   openModal = () => {
@@ -22,9 +24,9 @@ class CardTodo extends React.Component {
       <div>
         <Card className="card-todo" style={cardTodoStyle(status)}>
           <Card.Body>
-            <Card.Title style={contentTextColor}> Title: </Card.Title>
+            <Card.Title style={contentTextColor}> {label.title} </Card.Title>
             <Card.Title style={contentTextColor}>{title}</Card.Title>
-            <Card.Text style={contentTextColor}> Due Date: </Card.Text>
+            <Card.Text style={contentTextColor}> {label.dueDate} </Card.Text>
             <Card.Text style={contentTextColor}>
               {" "}
               {formatDate(due_date)}{" "}
@@ -34,7 +36,7 @@ class CardTodo extends React.Component {
               onClick={this.openModal}
               style={buttonDetailsStyle(status)}
             >
-              See Detail
+              {button.seeDetail}
             </Button>
           </Card.Body>
         </Card>

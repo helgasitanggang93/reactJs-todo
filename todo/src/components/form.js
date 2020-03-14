@@ -1,6 +1,9 @@
 import React from "react";
 import { Modal, Form, Alert, Button } from "react-bootstrap";
 import { Field, reduxForm, reset } from "redux-form";
+import { button } from "./contentsVariable/buttonsVariable";
+import { label } from "./contentsVariable/labelsVariable";
+import { errMessage } from "./contentsVariable/errorsMessage";
 
 class FormTodo extends React.Component {
   renderError({ error, touched }) {
@@ -16,7 +19,7 @@ class FormTodo extends React.Component {
   renderInput = formProps => {
     return (
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label>{label.title}</Form.Label>
         <Form.Control
           id="data-cy-title-update"
           data-cy-title
@@ -26,8 +29,11 @@ class FormTodo extends React.Component {
           placeholder="Enter title"
         />
         <Form.Text className="text-muted">
-          Maximum length of title:{" "}
-          {this.lengthValue(40, formProps.input.value.length)}
+          {label.maxLengthOfTitle}{" "}
+          {this.lengthValue(
+            label.numLengthOfTitle,
+            formProps.input.value.length
+          )}
         </Form.Text>
         {this.renderError(formProps.meta)}
       </Form.Group>
@@ -37,7 +43,7 @@ class FormTodo extends React.Component {
   renderTextArea = formProps => {
     return (
       <Form.Group>
-        <Form.Label>Description</Form.Label>
+        <Form.Label>{label.description}</Form.Label>
         <Form.Control
           id="data-cy-description-update"
           data-cy-description
@@ -48,8 +54,11 @@ class FormTodo extends React.Component {
           placeholder="Enter description"
         />
         <Form.Text className="text-muted">
-          Maximum length of description:{" "}
-          {this.lengthValue(200, formProps.input.value.length)}
+          {label.maxLengthOfDesc}{" "}
+          {this.lengthValue(
+            label.numLengthOfDesc,
+            formProps.input.value.length
+          )}
         </Form.Text>
         {this.renderError(formProps.meta)}
       </Form.Group>
@@ -59,7 +68,7 @@ class FormTodo extends React.Component {
   renderDate = formProps => {
     return (
       <Form.Group>
-        <Form.Label>Due Date</Form.Label>
+        <Form.Label>{label.dueDate}</Form.Label>
         <Form.Control
           id="data-cy-date-update"
           data-cy-date
@@ -74,7 +83,7 @@ class FormTodo extends React.Component {
   renderImage = formProps => {
     return (
       <Form.Group>
-        <Form.Label>Image</Form.Label>
+        <Form.Label>{label.image}</Form.Label>
         <input
           id="data-cy-image-update"
           data-cy-image
@@ -104,7 +113,7 @@ class FormTodo extends React.Component {
         <Modal show={this.props.show}>
           <Modal.Header>
             <Modal.Title>{this.props.themeOfModal}</Modal.Title>
-            <Button onClick={this.clearCloseModal}>X</Button>
+            <Button onClick={this.clearCloseModal}>{label.closeSign}</Button>
           </Modal.Header>
           <Modal.Body>
             <Form
@@ -122,7 +131,7 @@ class FormTodo extends React.Component {
                   data-cy-create="submitData"
                   className="btn btn-primary"
                 >
-                  Save Changes
+                  {button.saveChanges}
                 </button>
               </Modal.Footer>
             </Form>
@@ -137,19 +146,19 @@ const validate = formValues => {
   const errors = {};
 
   if (!formValues.title) {
-    errors.title = "You must enter a title";
+    errors.title = errMessage.title.emptyTitle;
   } else if (formValues.title.length > 40) {
-    errors.title = "Must be 40 Characters or less";
+    errors.title = errMessage.title.titleMoreThanLength;
   }
 
   if (!formValues.description) {
-    errors.description = "You must enter a description";
+    errors.description = errMessage.description.emptyDescription;
   } else if (formValues.description.length > 200) {
-    errors.description = "Must be 20 Characters or less";
+    errors.description = errMessage.description.descMoreThanLength;
   }
 
   if (!formValues.due_date) {
-    errors.due_date = "You must enter a due date";
+    errors.due_date = errMessage.dueDate.emptyDueDate;
   } else if (formValues.due_date) {
     var inputdate = new Date(formValues.due_date).getTime();
     let getYear = new Date().getFullYear();
@@ -158,20 +167,20 @@ const validate = formValues => {
     var stringDay = `${getYear}-${getMonth}-${getDay}`;
     var beforedate = new Date(stringDay).getTime();
     if (inputdate <= beforedate) {
-      errors.due_date = "Date Must be Greather";
+      errors.due_date = errMessage.dueDate.dueLessThanNow;
     }
   }
 
   if (typeof formValues.image === "object") {
     if (formValues.image[0]) {
       if (formValues.image[0].size > 5242880) {
-        errors.image = "maximum file size is 5 MB";
+        errors.image = errMessage.image.sizeMoreThan;
       } else if (
         formValues.image[0].type !== "image/png" &&
         formValues.image[0].type !== "image/jpg" &&
         formValues.image[0].type !== "image/jpeg"
       ) {
-        errors.image = "should upload jpg, png or jpeg";
+        errors.image = errMessage.image.anotherImage;
       }
     }
   }

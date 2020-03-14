@@ -12,13 +12,18 @@ import {
 } from "../store/actions";
 import { Form, Alert } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
-import {centerPosition, loginRegisterFormPositionStyle} from './styles/componentsStyle';
+import {
+  centerPosition,
+  loginRegisterFormPositionStyle
+} from "./styles/componentsStyle";
+import { button } from "./contentsVariable/buttonsVariable";
+import { label } from "./contentsVariable/labelsVariable";
 
 class Login extends React.Component {
   renderEmail = formprops => {
     return (
       <Form.Group>
-        <Form.Label>Email:</Form.Label>
+        <Form.Label>{label.email}:</Form.Label>
         <Form.Control
           data-cy-email
           {...formprops.input}
@@ -32,7 +37,7 @@ class Login extends React.Component {
   renderPassword = formprops => {
     return (
       <Form.Group>
-        <Form.Label>Password:</Form.Label>
+        <Form.Label>{label.password}:</Form.Label>
         <Form.Control
           {...formprops.input}
           data-cy-password
@@ -47,7 +52,7 @@ class Login extends React.Component {
     this.props.loginSubmit(formValues);
     dispatch(reset("loginpage"));
   };
-  
+
   toRegister = () => {
     this.props.emptyError();
     this.props.isLogin(false);
@@ -60,9 +65,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div
-        style={centerPosition}
-      >
+      <div style={centerPosition}>
         <div className="container">
           <div className="row">
             <div
@@ -74,7 +77,7 @@ class Login extends React.Component {
               ) : (
                 undefined
               )}
-              <h3 className="text-center">Login Form</h3>
+              <h3 className="text-center">{label.formLogin}</h3>
               <Form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <Field
                   id="input-email-loginpage"
@@ -84,7 +87,7 @@ class Login extends React.Component {
                 <Field name="password" component={this.renderPassword} />
                 <div className="text-center">
                   <button data-cy="submitLogin" className="btn btn-primary">
-                    Login
+                    {button.login}
                   </button>{" "}
                   <br />
                 </div>
@@ -101,7 +104,7 @@ class Login extends React.Component {
                   className="btn btn-link"
                   onClick={this.toRegister}
                 >
-                  Don't Have Any Account yet?
+                  {button.navToRegister}
                 </button>
               </div>
             </div>

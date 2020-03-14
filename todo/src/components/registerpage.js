@@ -9,7 +9,13 @@ import {
   emptyError
 } from "../store/actions";
 import { Field, reduxForm, reset } from "redux-form";
-import {centerPosition, loginRegisterFormPositionStyle} from './styles/componentsStyle';
+import {
+  centerPosition,
+  loginRegisterFormPositionStyle
+} from "./styles/componentsStyle";
+import { button } from "./contentsVariable/buttonsVariable";
+import { label } from "./contentsVariable/labelsVariable";
+import { errMessage } from "./contentsVariable/errorsMessage";
 
 class Register extends React.Component {
   renderError({ error, touched }) {
@@ -21,7 +27,7 @@ class Register extends React.Component {
   renderName = formprops => {
     return (
       <Form.Group>
-        <Form.Label>Name:</Form.Label>
+        <Form.Label>{label.name}:</Form.Label>
         <Form.Control
           data-cy-register-name
           {...formprops.input}
@@ -36,7 +42,7 @@ class Register extends React.Component {
   renderEmail = formprops => {
     return (
       <Form.Group>
-        <Form.Label>Email:</Form.Label>
+        <Form.Label>{label.email}:</Form.Label>
         <Form.Control
           data-cy-register-email
           {...formprops.input}
@@ -51,7 +57,7 @@ class Register extends React.Component {
   renderPassword = formprops => {
     return (
       <Form.Group>
-        <Form.Label>Password:</Form.Label>
+        <Form.Label>{label.password}:</Form.Label>
         <Form.Control
           data-cy-register-password
           {...formprops.input}
@@ -66,12 +72,12 @@ class Register extends React.Component {
   renderRole = formprops => {
     return (
       <Form.Group controlId="exampleForm.ControlSelect1">
-        <Form.Label>Role</Form.Label>
+        <Form.Label>{label.role}:</Form.Label>
         <Form.Control data-cy-register-role {...formprops.input} as="select">
-          <option>Pick your role</option>
-          <option value="se">Software Engineer</option>
-          <option value="con">Consultant</option>
-          <option value="sq">Software Quality</option>
+          <option>{label.optionRole}</option>
+          <option value="se">{label.roleList.se}</option>
+          <option value="con">{label.roleList.con}</option>
+          <option value="sq">{label.roleList.sq}</option>
         </Form.Control>
         {this.renderError(formprops.meta)}
       </Form.Group>
@@ -91,16 +97,14 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div
-        style={centerPosition}
-      >
+      <div style={centerPosition}>
         <div className="container">
           <div className="row">
             <div
               className="col-lg-6 offset-lg-3"
               style={loginRegisterFormPositionStyle}
             >
-              <h3 className="text-center">Form Register</h3>
+              <h3 className="text-center">{label.formRegister}</h3>
               {this.props.errorServer !== "" ? (
                 <Alert variant="danger">{this.props.errorServer}</Alert>
               ) : (
@@ -115,7 +119,7 @@ class Register extends React.Component {
                 <Field name="password" component={this.renderPassword} />
                 <Field name="role" component={this.renderRole} />
                 <div className="text-center">
-                  <button className="btn btn-primary">Submit</button>
+                  <button className="btn btn-primary">{button.submit}</button>
                 </div>
               </Form>
               <button
@@ -123,7 +127,7 @@ class Register extends React.Component {
                 onClick={this.toLogin}
                 className="btn btn-primary"
               >
-                Back
+                {button.back}
               </button>
             </div>
           </div>
@@ -136,25 +140,25 @@ class Register extends React.Component {
 const validate = formValues => {
   const errors = {};
   if (!formValues.name) {
-    errors.name = "name must be required";
+    errors.name = errMessage.name.emptyName;
   }
 
   if (!formValues.email) {
-    errors.email = "email must be required";
+    errors.email = errMessage.email.emptyEmail;
   } else if (
     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formValues.email)
   ) {
-    errors.email = "email format invalid";
+    errors.email = errMessage.email.inavalidEmail;
   }
 
   if (!formValues.password) {
-    errors.password = "password must be required";
+    errors.password = errMessage.password.emptyPassword;
   } else if (formValues.password.length < 6) {
-    errors.password = "minimum length password is 6";
+    errors.password = errMessage.password.passMoreThanLength;
   }
 
   if (!formValues.role) {
-    errors.role = "please pick your role";
+    errors.role = errMessage.role.roleEmpty;
   }
 
   return errors;

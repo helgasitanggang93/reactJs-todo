@@ -8,6 +8,8 @@ import {
 } from "../store/actions";
 import FormTodo from "../components/form";
 import { Button } from "react-bootstrap";
+import {button} from './contentsVariable/buttonsVariable';
+import {label} from './contentsVariable/labelsVariable';
 
 class EditFormTodo extends React.Component {
   componentDidMount() {
@@ -33,11 +35,11 @@ class EditFormTodo extends React.Component {
     return (
       <div>
         <Button data-cy-update variant="warning" onClick={this.handleOpenModal}>
-          Update
+          {button.update}
         </Button>
         <FormTodo
           initialValues={this.props.reducer.detail}
-          themeOfModal={"Update Todo"}
+          themeOfModal={label.updateTodoTitle}
           closeModal={this.handleClose}
           onSubmit={this.onSubmit}
           show={this.props.reducer.isForm}

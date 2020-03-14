@@ -12,7 +12,12 @@ import {
 } from "../store/actions";
 import { Dropdown, DropdownButton, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {paddingForList, marginTopBetweenCreate, spacingBetweenSortButton} from '../components/styles/componentsStyle';
+import {
+  paddingForList,
+  marginTopBetweenCreate,
+  spacingBetweenSortButton
+} from "../components/styles/componentsStyle";
+import { label } from "../components/contentsVariable/labelsVariable";
 
 class TodosList extends React.Component {
   componentDidMount() {
@@ -44,7 +49,7 @@ class TodosList extends React.Component {
       );
     });
   }
-  
+
   sortByDueDate = () => {
     this.props.sortByDue();
   };
@@ -62,7 +67,7 @@ class TodosList extends React.Component {
             {this.props.reducer.todos.length !== 0 ? (
               <DropdownButton id="dropdown-basic-button" title="Option">
                 <Dropdown.Item onClick={this.sortByDueDate}>
-                  Sort By Due Date
+                  {label.sortByDueDate}
                 </Dropdown.Item>
               </DropdownButton>
             ) : null}
@@ -72,7 +77,7 @@ class TodosList extends React.Component {
           {this.props.reducer.todos.length !== 0 ? (
             this.listTodoRender()
           ) : (
-            <div> Please create your data </div>
+            <div>{label.emptyData}</div>
           )}
           <DetaiTodo />
         </div>

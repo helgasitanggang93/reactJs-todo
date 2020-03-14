@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { createTodo, formModalHandler, isDetail } from "../store/actions";
 import FormTodo from "../components/form";
 import { Button } from "react-bootstrap";
+import { button } from "./contentsVariable/buttonsVariable";
+import { label } from "./contentsVariable/labelsVariable";
 
 class CreateFormTodo extends React.Component {
   handleOpenModal = () => {
@@ -18,7 +20,7 @@ class CreateFormTodo extends React.Component {
     this.props.createTodo(formValues);
     this.handleClose();
   };
-  
+
   render() {
     return (
       <div>
@@ -27,10 +29,10 @@ class CreateFormTodo extends React.Component {
           variant="primary"
           onClick={this.handleOpenModal}
         >
-          Create To Do
+          {button.createTodo}
         </Button>
         <FormTodo
-          themeOfModal={"Create Todo"}
+          themeOfModal={label.createTodoTitle}
           closeModal={this.handleClose}
           onSubmit={this.onSubmit}
           show={this.props.reducer.isForm}

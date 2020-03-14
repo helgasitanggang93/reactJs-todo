@@ -9,7 +9,9 @@ import {
 } from "../store/actions";
 import { GoogleLogout } from "react-google-login";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {textNavColor, navBaseColor} from './styles/componentsStyle';
+import { textNavColor, navBaseColor } from "./styles/componentsStyle";
+import { button } from "./contentsVariable/buttonsVariable";
+import { label } from "./contentsVariable/labelsVariable";
 
 class Navbar extends React.Component {
   displayLoginButton = () => {
@@ -20,7 +22,7 @@ class Navbar extends React.Component {
         style={navBaseColor}
       >
         <h3 className="navbar-brand" style={textNavColor}>
-          REACT TO DO
+          {label.reactTodo}
         </h3>
       </nav>
     );
@@ -33,7 +35,7 @@ class Navbar extends React.Component {
         style={navBaseColor}
       >
         <h3 className="navbar-brand" style={textNavColor}>
-          REACT TO DO
+          {label.reactTodo}
         </h3>
         {this.props.reducer.isGoogleSignIn ? (
           this.logOutGoogle()
@@ -43,7 +45,7 @@ class Navbar extends React.Component {
             onClick={this.onLogOutPressed}
             className="btn btn-secondary"
           >
-            LOG OUT
+            {button.logOut}
           </button>
         )}
       </nav>
@@ -55,7 +57,7 @@ class Navbar extends React.Component {
       <GoogleLogout
         render={renderProps => (
           <button className="btn btn-secondary" onClick={renderProps.onClick}>
-            Log Out
+            {button.logOut}
           </button>
         )}
         onLogoutSuccess={this.onLogOutPressed}
@@ -69,11 +71,13 @@ class Navbar extends React.Component {
     this.props.isGoogleSignIn(false);
     localStorage.clear();
   };
-  
+
   render() {
     return (
       <div>
-        {this.props.reducer.isLoginRegister ? this.displayLoginButton() : this.isLogin()}
+        {this.props.reducer.isLoginRegister
+          ? this.displayLoginButton()
+          : this.isLogin()}
       </div>
     );
   }

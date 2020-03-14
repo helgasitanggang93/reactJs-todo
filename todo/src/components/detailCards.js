@@ -18,6 +18,8 @@ import {
   contentTextStyle,
   layoutDefaultSetting
 } from "./styles/componentsStyle";
+import { button } from "./contentsVariable/buttonsVariable";
+import { label } from "./contentsVariable/labelsVariable";
 
 class DetailTodo extends React.Component {
   changeStatusDone = (id, statusDone) => {
@@ -66,7 +68,7 @@ class DetailTodo extends React.Component {
           show={this.props.reducer.isDetail}
         >
           <Modal.Header style={headerDetailCardStyle(type)}>
-            <h5> Detail Todo</h5>
+            <h5> {label.detailTodo}</h5>
           </Modal.Header>
           <Modal.Body>
             <div className="card-body">
@@ -87,12 +89,12 @@ class DetailTodo extends React.Component {
               </div>
               <div className="card-text text-center">
                 <div>
-                  <span style={contentTextStyle}> Due Date:</span>
+                  <span style={contentTextStyle}> {label.dueDate}:</span>
                   <p id="duedate-detail-todo"> {formatDate(due_date)} </p>
                 </div>
               </div>
               <div className="card-text text-center">
-                <span style={contentTextStyle}>Desciption:</span>
+                <span style={contentTextStyle}>{label.description}:</span>
                 <p id="description-detail-todo">{description}</p>
               </div>
             </div>
@@ -107,7 +109,7 @@ class DetailTodo extends React.Component {
                         onClick={() => this.changeStatusDone(_id, "urgent")}
                         variant="info"
                       >
-                        Undone
+                        {button.undone}
                       </Button>
                     ) : (
                       <Button
@@ -115,7 +117,7 @@ class DetailTodo extends React.Component {
                         onClick={() => this.changeStatusDone(_id, "done")}
                         variant="info"
                       >
-                        Done
+                        {button.done}
                       </Button>
                     )}
                   </div>
@@ -126,7 +128,7 @@ class DetailTodo extends React.Component {
                       onClick={() => this.deleteTodo(_id)}
                       variant="danger"
                     >
-                      Delete
+                      {button.delete}
                     </Button>
                   </div>
                   <div className="col">
@@ -137,7 +139,7 @@ class DetailTodo extends React.Component {
                       variant="primary"
                       onClick={this.onEmptyDetail}
                     >
-                      Close
+                      {button.close}
                     </Button>
                   </div>
                 </div>

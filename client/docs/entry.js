@@ -9,7 +9,7 @@
       import ReactDOM from "react-dom";
 
 
-      import ReactWrapper from '../node_modules/better-docs/lib/react-wrapper.js';
+      import ReactWrapper from 'better-docs/lib/react-wrapper.js';
 
       window.React = React;
 
@@ -22,5 +22,5 @@
 
     import './styles/iframe.css';
 
-  import Component0 from '../src/components/cards.js';
+  import Component0 from '../src/components/cards.js.js';
 reactComponents['CardTodo'] = Component0;

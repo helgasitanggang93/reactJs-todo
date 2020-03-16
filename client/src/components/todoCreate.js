@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createTodo, formModalHandler, isDetail } from "../store/actions";
-import FormTodo from "../components/form";
+import FormTodo from "./form";
 import { Button } from "react-bootstrap";
 import { button } from "./contentsVariable/buttonsVariable";
 import { label } from "./contentsVariable/labelsVariable";

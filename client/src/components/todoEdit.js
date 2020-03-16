@@ -6,7 +6,7 @@ import {
   formModalHandler,
   fetchDetailTodo
 } from "../store/actions";
-import FormTodo from "../components/form";
+import FormTodo from "./form";
 import { Button } from "react-bootstrap";
 import {button} from './contentsVariable/buttonsVariable';
 import {label} from './contentsVariable/labelsVariable';

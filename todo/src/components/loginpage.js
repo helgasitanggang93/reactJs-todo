@@ -142,7 +142,7 @@ class Login extends React.Component {
               </Form>
               <div className="text-center">
                 <GoogleLogin
-                  clientId="1056392817226-rndeghtfhkcmirvrll080usji8fmted4.apps.googleusercontent.com" //TO BE CREATED
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID_PRODUCTION} //TO BE CREATED
                   onSuccess={this.responseGoogle}
                   onFailure={this.responseGoogle}
                 />

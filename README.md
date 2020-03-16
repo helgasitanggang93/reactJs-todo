@@ -15,4 +15,5 @@ The TODO app lets a user create, read, update and delete to-do tasks. A task has
   - Redux
 
 ## Depolyed web app
+  - depoloyed to heroku
 https://hopeful-kalam-0800e9.netlify.com/

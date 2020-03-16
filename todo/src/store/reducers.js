@@ -25,6 +25,11 @@ const initialState = {
   isGoogleSignIn: false
 };
 
+/**
+ * Reducers specify how the application's state changes in response to actions sent to the store.
+ * state?: Object - from previous data
+ * action?: Object - it contain payload and type
+ */
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TODO_DATA: {
@@ -95,6 +100,11 @@ const reducer = (state = initialState, action) => {
   }
 };
 
+/**
+ * The combineReducers helper function turns an object whose values are different reducing 
+   functions into a single reducing function you can pass to createStore.
+ * {reducer?: reducer - spesific for data layer of todo, form?: formReducer - spesific for data layer of form}
+ */
 export default combineReducers({
   reducer: reducer,
   form: formReducer

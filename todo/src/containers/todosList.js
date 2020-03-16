@@ -19,14 +19,32 @@ import {
 } from "../components/styles/componentsStyle";
 import { label } from "../components/contentsVariable/labelsVariable";
 
+/**
+ * Component Container to contain all data of todoList and detail of todoList component
+ * return JSX contain all data of todoList and detail of todoList
+ */
 class TodosList extends React.Component {
+  /**
+   * React Life cycle
+   * it will run after the TodoList has been rendered
+   */
   componentDidMount() {
     if (localStorage.token) {
+      /**
+       * action method to handling fetch all data
+       */
       this.props.fetchTodoData();
     }
   }
 
+  /**
+   * React Life cycle
+   * it will run after the TodoList has been removed from DOM
+   */
   componentWillUnmount() {
+    /**
+     * action method for empty all data todo
+     */
     this.props.emptyTodos();
   }
 
@@ -45,7 +63,13 @@ class TodosList extends React.Component {
     });
   }
 
+  /**
+   * Instance method for sort ascending by due date
+   */
   sortByDueDate = () => {
+    /**
+     * action method for handling sort ascending by due date
+     */
     this.props.sortByDue();
   };
 
@@ -81,10 +105,25 @@ class TodosList extends React.Component {
   }
 }
 
+/**
+ * Mapping initialState and parent prop into local props
+ * state?: Object - it will be called whenever the store state changes, and given the store state as the only parameter.
+ * return - state Object
+ */
 const mapStoreToProps = state => {
   return state;
 };
 
+/**
+ * The connect() function connects a React component to a Redux store.
+ * mapStoreToProps?: Function - deals with your Redux store’s state and dispatch, respectively.
+ * {fetchTodoData?: Function,
+  formModalHandler?: Function,
+  isDetail?: Function, 
+  sortByDue?: Function,
+  emptyTodos?: Function} - Action Method
+ * (TodosList?: JSX) - TodosList Component
+ */
 export default connect(mapStoreToProps, {
   isDetail,
   fetchTodoData,

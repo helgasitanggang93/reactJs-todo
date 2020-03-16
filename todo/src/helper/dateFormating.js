@@ -1,3 +1,8 @@
+/**
+     * method for re format the date
+     * values?: string -  due date 
+     * return - appropriate date format
+*/
 export const formatDate = values => {
   const dayList = [
     "Sunday",

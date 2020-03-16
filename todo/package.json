@@ -22,7 +22,8 @@
     "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,10 +41,12 @@
     ]
   },
   "devDependencies": {
+    "better-docs": "^1.4.7",
     "cypress": "^3.7.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "jest": "^24.9.0",
+    "jsdoc": "^3.6.3",
     "moxios": "^0.4.0",
     "react-test-renderer": "^16.12.0"
   }

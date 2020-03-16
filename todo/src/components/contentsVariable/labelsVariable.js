@@ -1,3 +1,38 @@
+/**
+ * @type {
+  { title: string,
+  description: string,
+  dueDate: string,
+  image: 'string,
+  reactTodo: string,
+  detailTodo: string,
+  createTodo: string,
+  maxLengthOfDesc: string,
+  maxLengthOfTitle: string,
+  numLengthOfDesc: number,
+  numLengthOfTitle: number,
+  numLengthOfPassword: number,
+  closeSign: string,
+  emptyData: string,
+  sortByDueDate: string,
+  updateTodoTitle: string,
+  createTodoTitle: string,
+  name: string,
+  email: string,
+  password: string,
+  optionRole: string,
+  role: string,
+  roleList: {
+    se:string,
+    con:string,
+    sq:string
+  },
+  formRegister: string,
+  formLogin: string,
+  sizeImage:string
+  }}
+ */
+
 export const label = {
   title: 'Title',
   description: 'Description',

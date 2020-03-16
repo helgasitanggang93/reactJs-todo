@@ -19,7 +19,17 @@ import {
 import { button } from "./contentsVariable/buttonsVariable";
 import { label } from "./contentsVariable/labelsVariable";
 
+/**
+ * Component Login to show login form
+ * return JSX contain spesific login form
+ */
 class Login extends React.Component {
+
+  /**
+   * Instance Method for handling email
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of email
+   */
   renderEmail = formprops => {
     return (
       <Form.Group>
@@ -34,6 +44,11 @@ class Login extends React.Component {
     );
   };
 
+  /**
+   * Instance Method for handling title
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of password
+   */
   renderPassword = formprops => {
     return (
       <Form.Group>
@@ -48,18 +63,51 @@ class Login extends React.Component {
     );
   };
 
+  /**
+   * Instance Method for Submit
+   * formValues?: Object - contain input data from user
+   * dispatch?: Function -  to trigger a state change
+   */
   onSubmit = (formValues, dispatch) => {
+     /**
+       * action method to handling login
+       * formValues?:Object - contain input data from user
+       */
     this.props.loginSubmit(formValues);
+    /**
+       * reset(<classComponent?: string>) - to triger reset form
+     */
     dispatch(reset("loginpage"));
   };
 
+  /**
+   * Instance Method for navigate to register page
+   */
   toRegister = () => {
+    /**
+     * action method to clear error message
+     */
     this.props.emptyError();
+     /**
+     * action method to change isLogin status
+     * <boolean?: false> - isLogin status
+     */
     this.props.isLogin(false);
+     /**
+     * action method to change isRegister status
+     * <boolean?: true> - isRegister status
+     */
     this.props.isRegister(true);
   };
 
+   /**
+   * Instance Method to handling google Signe In
+   * response?: Object - contain user token 
+   */
   responseGoogle = response => {
+    /**
+     * action method to send token Id to backend
+     */
     this.props.ggSignIn(response.tokenId);
   };
 
@@ -115,7 +163,23 @@ class Login extends React.Component {
   }
 }
 
+/**
+ * reduxForm() function similiar connect spesific to handling Redux Form.
+ * {form?: String} - Action Method
+ * (Login?: JSX) - FormTodo Component
+ */
 const formWrapped = reduxForm({ form: "loginpage" })(Login);
+/**
+ * The connect() function connects a React component to a Redux store.
+ * null - there isn't mapStoreToProps then we set null
+ * {loginSubmit?: Function,
+  isLogin?: Function,
+  isRegister?: Function,
+  emptyError?: Function,
+  ggSignIn?: Function,
+  fetchTodoData?: Function} - Action Method
+ * (formWraped?: Function) - contain ReduxForm
+ */
 export default connect(null, {
   loginSubmit,
   isLogin,

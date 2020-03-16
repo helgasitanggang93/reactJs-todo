@@ -17,6 +17,10 @@ import { button } from "./contentsVariable/buttonsVariable";
 import { label } from "./contentsVariable/labelsVariable";
 import { errMessage } from "./contentsVariable/errorsMessage";
 
+/**
+ * Component Register to show register form
+ * return JSX contain spesific register form
+ */
 class Register extends React.Component {
   renderError({ error, touched }) {
     if (touched && error) {
@@ -24,6 +28,11 @@ class Register extends React.Component {
     }
   }
 
+/**
+   * Instance Method for handling name
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of name
+   */
   renderName = formprops => {
     return (
       <Form.Group>
@@ -39,6 +48,11 @@ class Register extends React.Component {
     );
   };
 
+/**
+   * Instance Method for handling email
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of email
+   */
   renderEmail = formprops => {
     return (
       <Form.Group>
@@ -54,6 +68,11 @@ class Register extends React.Component {
     );
   };
 
+/**
+   * Instance Method for handling password
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of password
+   */
   renderPassword = formprops => {
     return (
       <Form.Group>
@@ -69,6 +88,11 @@ class Register extends React.Component {
     );
   };
 
+/**
+   * Instance Method for handling role
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of role
+   */
   renderRole = formprops => {
     return (
       <Form.Group controlId="exampleForm.ControlSelect1">
@@ -84,14 +108,40 @@ class Register extends React.Component {
     );
   };
 
+  /**
+   * Instance Method for Submit
+   * formValues?: Object - contain input data from user
+   * dispatch?: Function -  to trigger a state change
+   */
   onSubmit = (formValues, dispatch) => {
+    /**
+       * action method to handling register
+       * formValues?:Object - contain input data from user
+       */
     this.props.registerSubmit(formValues);
+    /**
+       * reset(<classComponent?: string>) - to triger reset form
+     */
     dispatch(reset("register"));
   };
 
+  /**
+   * Instance Method for navigate to login page
+   */
   toLogin = () => {
+    /**
+     * action method to clear error message
+     */
     this.props.emptyError();
+    /**
+     * action method to change isLogin status
+     * <boolean?: true> - isLogin status
+     */
     this.props.isLogin(true);
+    /**
+     * action method to change isRegister status
+     * <boolean?: false> - isRegister status
+     */
     this.props.isRegister(false);
   };
 
@@ -137,12 +187,26 @@ class Register extends React.Component {
   }
 }
 
+/**
+ * Method for handling form error
+ * formValues?: Object - contain meta from static properties of Redux Form
+ * return error message
+ */
 const validate = formValues => {
+  /**
+     * Object literal to handle form error
+     */
   const errors = {};
+  /**
+   * block for handling name validation
+   */
   if (!formValues.name) {
     errors.name = errMessage.name.emptyName;
   }
 
+  /**
+   * block for handling email validation
+   */
   if (!formValues.email) {
     errors.email = errMessage.email.emptyEmail;
   } else if (
@@ -151,20 +215,40 @@ const validate = formValues => {
     errors.email = errMessage.email.inavalidEmail;
   }
 
+  /**
+   * block for handling password validation
+   */
   if (!formValues.password) {
     errors.password = errMessage.password.emptyPassword;
   } else if (formValues.password.length < 6) {
     errors.password = errMessage.password.passMoreThanLength;
   }
 
+  /**
+   * block for handling role validation
+   */
   if (!formValues.role) {
     errors.role = errMessage.role.roleEmpty;
   }
 
   return errors;
 };
-const formWrapped = reduxForm({ form: "register", validate })(Register);
 
+/**
+ * reduxForm() function similiar connect spesific to handling Redux Form.
+ * {form?: String} - Action Method
+ * (Login?: JSX) - FormTodo Component
+ */
+const formWrapped = reduxForm({ form: "register", validate })(Register);
+/**
+ * The connect() function connects a React component to a Redux store.
+ * null - there isn't mapStoreToProps then we set null
+ * {registerSubmit?: Function,
+  isLogin?: Function,
+  isRegister?: Function,
+  emptyError?: Function} - Action Method
+ * (formWraped?: Function) - contain ReduxForm
+ */
 export default connect(null, {
   registerSubmit,
   isLogin,

@@ -3,6 +3,10 @@ import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {centerPosition} from './styles/componentsStyle';
 
+/**
+ * Component Loading to show Loading Spinner
+ * return JSX contain Loading Spinner
+ */
 class Loading extends React.Component {
   render() {
     return (

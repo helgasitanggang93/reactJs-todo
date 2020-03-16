@@ -11,6 +11,12 @@ import {
     FORM_MODAL_HANDLER, 
     ITEM_ERROR, 
     FETCH_DETAIL_TODO} from './actionsType';
+
+/**
+ * action method for sort ascending by due date
+ * dispatch?: Function -  to trigger a state change
+ * getState?: Function - to get existing initialState
+ */
 export const sortByDue = () => (dispatch, getState) => {
   let sorted = getState().reducer.todos.sort((a, b) => {
     let firstDate = new Date(a.due_date).getTime();
@@ -25,6 +31,11 @@ export const sortByDue = () => (dispatch, getState) => {
   });
 };
 
+/**
+ * action method for sort descending by due date
+ * dispatch?: Function -  to trigger a state change
+ * getState?: Function - to get existing initialState
+ */
 export const sortByDueDesc = () => (dispatch, getState) => {
   let sorted = getState().reducer.todos.sort((a, b) => {
     let firstDate = new Date(a.due_date).getTime();
@@ -39,6 +50,10 @@ export const sortByDueDesc = () => (dispatch, getState) => {
   });
 };
 
+/**
+     * Action method for change detail status
+     * bool?: boolean - status isDetail
+*/
 export const isDetail = bool => {
   return {
     type: IS_DETAIL,
@@ -46,6 +61,10 @@ export const isDetail = bool => {
   };
 };
 
+/**
+     * Action method for change isGoogleSignIn status
+     * bool?: boolean - status isDetail
+*/
 export const isGoogleSignIn = bool => {
   return {
     type: IS_GOOGLE_SIGN_IN,
@@ -53,12 +72,19 @@ export const isGoogleSignIn = bool => {
   };
 };
 
+/**
+     * Action method for change showLoading status
+*/
 export const shwoLoading = () => {
   return {
     type: IS_LOADING
   };
 };
 
+/**
+     * Action method for change isLoginRegister status
+     * bool?: boolean - status isLoginRegister
+*/
 export const isLoginRegister = bool => {
   return {
     type: IS_LOGIN_REGISTER,
@@ -66,6 +92,10 @@ export const isLoginRegister = bool => {
   };
 };
 
+/**
+     * Action method for change isLogin status
+     * bool?: boolean - status isLogin
+*/
 export const isLogin = bool => {
   return {
     type: IS_LOGIN,
@@ -73,6 +103,10 @@ export const isLogin = bool => {
   };
 };
 
+/**
+     * Action method for change isRegister status
+     * bool?: boolean - status isRegister
+*/
 export const isRegister = bool => {
   return {
     type: IS_REGISTER,
@@ -80,6 +114,10 @@ export const isRegister = bool => {
   };
 };
 
+/**
+     * Action method for change formHandler status
+     * bool?: boolean - status formHandler
+*/
 export const formModalHandler = bool => {
   return {
     type: FORM_MODAL_HANDLER,
@@ -87,7 +125,14 @@ export const formModalHandler = bool => {
   };
 };
 
+/**
+     * Action method for handling fetch all todo data
+     * dispatch?: Function -  to trigger a state change
+*/
 export const fetchTodoData = () => dispatch => {
+    /**
+     * send token into backend to provide authentication and authorization
+     */
   axiosTodo.defaults.headers.common["token"] = localStorage.token;
   axiosTodo
     .get("/todos")
@@ -110,13 +155,26 @@ export const fetchTodoData = () => dispatch => {
     });
 };
 
+/**
+     * Action method for handling changes of todo status
+     * id?: idTodo - id todo
+     * status?: string - it can be urgent or unUrgent
+     * dispatch?: Function -  to trigger a state change
+     * getState?: Function - to get existing initialState
+*/
 export const updateDoneTodo = (id, status) => (dispatch, getState) => {
   dispatch({
     type: IS_LOADING
   });
+  /**
+   * filtering to not showing selected todo from existing initialState
+   */
   let newArr = getState().reducer.todos.filter(element => {
     return element._id !== id;
   });
+  /**
+     * send token into backend to provide authentication and authorization
+     */
   axiosTodo.defaults.headers.common["token"] = localStorage.token;
   axiosTodo
     .patch(`/todos/${id}`, {
@@ -141,7 +199,15 @@ export const updateDoneTodo = (id, status) => (dispatch, getState) => {
     });
 };
 
+/**
+     * Action method for fetch todo by id
+     * id?: idTodo - id todo
+     * dispatch?: Function -  to trigger a state change
+*/
 export const fetchDetailTodo = id => dispatch => {
+    /**
+     * send token into backend to provide authentication and authorization
+     */
   axiosTodo.defaults.headers.common["token"] = localStorage.token;
   axiosTodo
     .get(`/todos/${id}`)
@@ -159,10 +225,25 @@ export const fetchDetailTodo = id => dispatch => {
     });
 };
 
+/**
+     * Action method for create data todo
+     * values?: Object - object from user input
+     * dispatch?: Function -  to trigger a state change
+*/
 export const createTodo = values => async dispatch => {
   try {
+      /**
+       * destructuring of all values
+       */
     const { title, description, due_date, image } = values;
+    /**
+     * send token into backend to provide authentication and authorization
+     */
     axiosTodo.defaults.headers.common["token"] = localStorage.token;
+    /**
+     * check if user doesn't upload an image
+     * if the image is false or undefine
+     */
     if (!image || image.length === 0) {
       dispatch({ type: IS_LOADING });
       await axiosTodo.post(`/todos`, {
@@ -173,6 +254,10 @@ export const createTodo = values => async dispatch => {
         image:
           "https://res.cloudinary.com/dpnjbs730/image/upload/v1574910240/no_image_yet_fmxurx.jpg"
       });
+      /**
+       * check if user upload an image
+       * the image data type must be an array
+       */
     } else {
       dispatch({ type: IS_LOADING });
       let formdata = new FormData();
@@ -200,11 +285,28 @@ export const createTodo = values => async dispatch => {
   }
 };
 
+/**
+     * Action method for update data todo
+     * id:? id todo
+     * values?: Object - object from user input
+     * dispatch?: Function -  to trigger a state change
+     * getState?: Function - to get existing initialState
+*/
 export const updateTodo = (id, values) => async (dispatch, getState) => {
+    /**
+     * send token into backend to provide authentication and authorization
+     */
   axiosTodo.defaults.headers.common["token"] = localStorage.token;
+  /**
+   * filtering to not showing selected todo from existing initialState
+   */
   let newArr = getState().reducer.todos.filter(element => {
     return element._id !== id;
   });
+  /**
+       * check if user change the image
+       * the image data type must be an array
+       */
   if (typeof values.image === "object") {
     try {
       dispatch({ type: IS_LOADING });
@@ -227,6 +329,10 @@ export const updateTodo = (id, values) => async (dispatch, getState) => {
         payload: error
       });
     }
+    /**
+       * check if user not change the image
+       * the image data type must be a string
+       */
   } else if (typeof values.image === "string") {
     try {
       dispatch({ type: IS_LOADING });
@@ -248,11 +354,24 @@ export const updateTodo = (id, values) => async (dispatch, getState) => {
   }
 };
 
+/**
+     * Action method for delete data todo
+     * id:? id todo
+     * values?: Object - object from user input
+     * dispatch?: Function -  to trigger a state change
+     * getState?: Function - to get existing initialState
+*/
 export const deleteTodo = id => (dispatch, getState) => {
   dispatch({
     type: IS_LOADING
   });
+   /**
+     * send token into backend to provide authentication and authorization
+     */
   axiosTodo.defaults.headers.common["token"] = localStorage.token;
+  /**
+   * filtering to not showing selected todo from existing initialState
+   */
   let newArr = getState().reducer.todos.filter(element => element._id !== id);
   axiosTodo
     .delete(`/todos/${id}`)
@@ -270,6 +389,11 @@ export const deleteTodo = id => (dispatch, getState) => {
     });
 };
 
+/**
+     * Action method for delete data todo
+     * values?: Object - object from user input
+     * dispatch?: Function -  to trigger a state change
+*/
 export const loginSubmit = values => dispatch => {
   dispatch({
     type: IS_LOADING
@@ -298,6 +422,11 @@ export const loginSubmit = values => dispatch => {
     });
 };
 
+/**
+     * Action method for delete data todo
+     * values?: Object - object from user input
+     * dispatch?: Function -  to trigger a state change
+*/
 export const registerSubmit = values => dispatch => {
   axiosTodo
     .post("/signup", {
@@ -332,6 +461,10 @@ export const registerSubmit = values => dispatch => {
     });
 };
 
+/**
+     * Action method for re empty the error message
+     * dispatch?: Function -  to trigger a state change
+*/
 export const emptyError = () => dispatch => {
   dispatch({
     type: ITEM_ERROR,
@@ -339,6 +472,10 @@ export const emptyError = () => dispatch => {
   });
 };
 
+/**
+     * Action method for re empty detail todo
+     * dispatch?: Function -  to trigger a state change
+*/
 export const emptydDetail = () => dispatch => {
   dispatch({
     type: FETCH_DETAIL_TODO,
@@ -346,6 +483,10 @@ export const emptydDetail = () => dispatch => {
   });
 };
 
+/**
+     * Action method for re empty all todo
+     * dispatch?: Function -  to trigger a state change
+*/
 export const emptyTodos = () => dispatch => {
   dispatch({
     type: FETCH_TODO_DATA,
@@ -353,6 +494,11 @@ export const emptyTodos = () => dispatch => {
   });
 };
 
+/**
+     * Action method for google sign in handling
+     * token?: googleUsERid - google user id from google
+     * dispatch?: Function -  to trigger a state change
+*/
 export const ggSignIn = token => dispatch => {
   dispatch({
     type: IS_LOADING

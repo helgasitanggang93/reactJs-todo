@@ -4,6 +4,10 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import reducer from "./store/reducers";
 
+/**
+ * Create <Provider/> Root makes the Redux store available to any nested components that have been wrapped in the connect() function.
+ * spesific export to ./index.js
+ */
 export default props => {
   const stores = createStore(
     reducer,

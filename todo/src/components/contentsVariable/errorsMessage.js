@@ -1,5 +1,42 @@
 import {label} from './labelsVariable';
 
+/**
+ * Storing buttons name
+ * @type {
+  {title: {
+    emptyTitle: string,
+    titleMoreThanLength: string,
+  },
+  description: {
+    emptyDescription: string,
+    descMoreThanLength: string
+  },
+  dueDate: {
+    emptyDueDate: string,
+    dueLessThanNow: string
+  },
+  image: {
+    sizeMoreThan: string,
+    anotherImage: string
+  },
+  name: {
+    emptyName: string
+  },
+  email: {
+    emptyEmail: string,
+    inavalidEmail: string
+  },
+  password: {
+    emptyPassword: string,
+    passMoreThanLength: string
+  },
+  role: {
+    roleEmpty: string
+  }
+    }
+  }
+   */
+
 export const errMessage = {
   title: {
     emptyTitle: 'You must enter a title',

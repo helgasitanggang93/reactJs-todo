@@ -1,3 +1,24 @@
+/**
+ * Storing buttons Name
+ * @type {
+ {seeDetail: string,
+  option: string,
+  createTodo: string,
+  done: string,
+  undone: string,
+  update: string,
+  delete: string,
+  close: string,
+  login: string,
+  navToRegister: string,
+  submit: string,
+  back: string,
+  logOut: string,
+  saveChanges: string
+  }
+}
+ */
+
 export const button = {
   seeDetail: 'See Detail',
   option: 'Option',

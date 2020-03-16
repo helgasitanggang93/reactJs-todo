@@ -5,17 +5,37 @@ import { button } from "./contentsVariable/buttonsVariable";
 import { label } from "./contentsVariable/labelsVariable";
 import { errMessage } from "./contentsVariable/errorsMessage";
 
+/**
+ * Component FormTodo to create and update todo data
+ * return JSX contain form
+ */
 class FormTodo extends React.Component {
+    /**
+     * Instance method for show error
+     * {error?: Object, touched?: Object} - static properties from Redux Form
+     * return Alert element contain error message
+     */
   renderError({ error, touched }) {
     if (touched && error) {
       return <Alert variant="danger">{error}</Alert>;
     }
   }
 
+  /**
+   * Instance Method for watch Number length of description or title
+   * limit?: number - limit for length of description or title
+   * langthValue?: - length of string from user input
+   * return - number - calculation from limit min lengthValue
+   */
   lengthValue = (limit, lengthValue = 0) => {
     return (limit -= lengthValue);
   };
 
+  /**
+   * Instance Method for handling title
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, length, error message of title
+   */
   renderInput = formProps => {
     return (
       <Form.Group>
@@ -40,6 +60,11 @@ class FormTodo extends React.Component {
     );
   };
 
+  /**
+   * Instance Method for handling description
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, length, error message of description
+   */
   renderTextArea = formProps => {
     return (
       <Form.Group>
@@ -65,6 +90,11 @@ class FormTodo extends React.Component {
     );
   };
 
+  /**
+   * Instance Method for handling due date
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of due date
+   */
   renderDate = formProps => {
     return (
       <Form.Group>
@@ -80,6 +110,11 @@ class FormTodo extends React.Component {
     );
   };
 
+  /**
+   * Instance Method for handling Image
+   * formProps?: Object - static properties from redux form
+   * return - JSX - label, field, error message of image
+   */
   renderImage = formProps => {
     return (
       <Form.Group>
@@ -96,14 +131,38 @@ class FormTodo extends React.Component {
     );
   };
 
+  /**
+   * Instance Method for Submit
+   * formValues?: Object - contain input data from user
+   * dispatch?: Function -  to trigger a state change
+   */
   onSubmit = (formValues, dispatch) => {
+        /**
+       * method from parent, it can be create or update
+       * formValues?: Object - contain input data from user
+       */
     this.props.onSubmit(formValues);
+     /**
+       * method from parent, to close modal
+       */
     this.props.closeModal();
+     /**
+       * reset(<classComponent?: string>) - to triger reset form
+       */
     dispatch(reset("formTodo"));
   };
 
+   /**
+     * Instance method for empty detail todo in InitialState when clicking close button
+    */
   clearCloseModal = () => {
+       /**
+       * reset(<classComponent?: string>) - to triger reset form
+       */
     this.props.dispatch(reset("formTodo"));
+     /**
+       * method from parent, to close modal
+       */
     this.props.closeModal();
   };
 
@@ -142,21 +201,38 @@ class FormTodo extends React.Component {
   }
 }
 
+/**
+ * Method for handling form error
+ * formValues?: Object - contain meta from static properties of Redux Form
+ * return error message
+ */
 const validate = formValues => {
+    /**
+     * Object literal to handle form error
+     */
   const errors = {};
 
+  /**
+   * block for handling title validation
+   */
   if (!formValues.title) {
     errors.title = errMessage.title.emptyTitle;
   } else if (formValues.title.length > 40) {
     errors.title = errMessage.title.titleMoreThanLength;
   }
 
+  /**
+   * block for handling description validation
+   */
   if (!formValues.description) {
     errors.description = errMessage.description.emptyDescription;
   } else if (formValues.description.length > 200) {
     errors.description = errMessage.description.descMoreThanLength;
   }
 
+  /**
+   * block for handling due date validation
+   */
   if (!formValues.due_date) {
     errors.due_date = errMessage.dueDate.emptyDueDate;
   } else if (formValues.due_date) {
@@ -171,6 +247,9 @@ const validate = formValues => {
     }
   }
 
+  /**
+   * block for handling image validation
+   */
   if (typeof formValues.image === "object") {
     if (formValues.image[0]) {
       if (formValues.image[0].size > 5242880) {
@@ -188,6 +267,11 @@ const validate = formValues => {
   return errors;
 };
 
+/**
+ * reduxForm() function similiar connect spesific to handling Redux Form.
+ * {form?: String, validate?: Function} - Action Method
+ * (FormTodo?: JSX) - FormTodo Component
+ */
 export default reduxForm({
   form: "formTodo",
   validate: validate

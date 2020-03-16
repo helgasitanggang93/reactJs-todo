@@ -21,18 +21,54 @@ import {
 import { button } from "./contentsVariable/buttonsVariable";
 import { label } from "./contentsVariable/labelsVariable";
 
+/**
+ * Component DetailTodo to show each todo list
+ * return JSX contain detail todo infromation
+ */
 class DetailTodo extends React.Component {
+    /**
+     * Instance method for changes todo Status
+     * id?: idTodo - todo id
+     * statusDone?: String - contain urgent or unUrgent
+     */
   changeStatusDone = (id, statusDone) => {
+      /**
+       * Action method for update todo status
+       * id?: idTodo - todo id
+       * statusDone?: String - contain urgent or unUrgent
+       */
     this.props.updateDoneTodo(id, statusDone);
   };
 
+  /**
+     * Instance method for delete todo
+     * id?: idTodo - todo id
+     */
   deleteTodo = id => {
+       /**
+     * Action method for delete todo
+     * id?: idTodo - todo id
+     */
     this.props.deleteTodo(id);
+      /**
+     * Action method for change detail status
+     * <boolean?: false> - status isDetail
+     */
     this.props.isDetail(false);
   };
 
+   /**
+     * Instance method for empty detail todo in InitialState when clicking close button
+    */
   onEmptyDetail = () => {
+      /**
+     * Action method to empty detail todo 
+     */
     this.props.emptydDetail();
+     /**
+     * Action method for change detail status
+     * <boolean?: false> - status isDetail
+     */
     this.props.isDetail(false);
   };
 
@@ -152,11 +188,27 @@ class DetailTodo extends React.Component {
   }
 }
 
-const mampToStore = state => {
+/**
+ * Mapping initialState and parent prop into local props
+ * state?: Object - it will be called whenever the store state changes, and given the store state as the only parameter.
+ * return - state Object
+ */
+const mapmapStoreToProps = state => {
   return state;
 };
 
-export default connect(mampToStore, {
+/**
+ * The connect() function connects a React component to a Redux store.
+ * mapStoreToProps?: Function - deals with your Redux store’s state and dispatch, respectively.
+ * {isDetail?: Function,
+  updateDoneTodo?: Function,
+  fetchTodoData?: Function,
+  deleteTodo?: Function,
+  fetchDetailTodo?: Function,
+  emptydDetail?: Function} - Action Method
+ * (DetailTodo?: JSX) - cardTodo Component
+ */
+export default connect(mapmapStoreToProps, {
   isDetail,
   updateDoneTodo,
   fetchTodoData,
